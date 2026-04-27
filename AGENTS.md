@@ -4,6 +4,14 @@ Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-s
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
+## 0. Response Language
+
+**Always respond in Simplified Chinese.**
+
+- All explanations, plans, clarifying questions, summaries, and final answers must be written in Simplified Chinese.
+- Keep code, commands, file paths, API names, error messages, and quoted source text in their original language when necessary.
+- If the user explicitly requests another language, follow the user's request for that response only.
+
 ## 1. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
