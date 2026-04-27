@@ -22,13 +22,13 @@
 建议每个样本建一个文件夹：
 
 smoke_test/  
-  A2_bytdance_feishu_aily_product/  
+  A2_bytedance_devservice_ai_product/  
     01_public_input.md  
     02_hidden_risk_notes.md  
     03_system_output.md  
     04_scorecard.md  
   
-  B2_bytdance_agent_backend/  
+  B2_xiaohongshu_product_engineer_ai_app/  
     01_public_input.md  
     02_hidden_risk_notes.md  
     03_system_output.md  
@@ -163,7 +163,7 @@ smoke_test/
 
 # 4. 三个 Smoke Test 样本包
 
-## 样本 A2：字节跳动飞书 AI 产品岗
+## 样本 A2：字节跳动开发者服务 AI 产品岗
 
 ### 公开输入包核心信息
 
@@ -177,15 +177,15 @@ AI 产品岗 / 素材完整 / 中风险
   
 ## 目标岗位信息  
   
-### 公司  
-字节跳动 / 飞书  
-  
-### 岗位名称  
-AI产品实习生（Aily）-飞书  
-  
-### 官方岗位来源  
-字节跳动校园招聘官方岗位页。  
-该岗位为 ByteIntern 岗位，岗位标题为“AI产品实习生（Aily）-飞书”，飞书团队介绍中将飞书定位为 AI 时代先进生产力平台。  
+### 公司
+字节跳动 / 开发者服务
+
+### 岗位名称
+AI产品实习生-开发者服务
+
+### 官方岗位来源
+字节跳动校园招聘官方岗位页。
+该岗位为 ByteIntern 岗位，职位 ID：A60432，岗位标题为“AI产品实习生-开发者服务”，base 北京。
 
 评测时，请复制该官方岗位页中的职位描述和职位要求原文。
 
@@ -263,7 +263,7 @@ A2
 
 ---
 
-## 样本 B2：字节跳动 AI Agent 服务端研发岗
+## 样本 B2：小红书 Product Engineer（AI 应用方向）
 
 ### 公开输入包核心信息
 
@@ -277,15 +277,15 @@ AI 应用开发岗 / 素材完整 / 中风险
   
 ## 目标岗位信息  
   
-### 公司  
-字节跳动 / 开发者服务  
-  
-### 岗位名称  
-AI Agent服务端研发实习生-开发者服务  
-  
-### 官方岗位来源  
-字节跳动校园招聘官方岗位页。  
-该岗位标题为“AI Agent服务端研发实习生-开发者服务”，岗位描述包括围绕研发高可用治理、质量保障 AI 化、研发环境管理等方向进行 Agent 应用开发，并参与大模型应用开发全流程。  
+### 公司
+小红书 / 质效研发
+
+### 岗位名称
+Product Engineer-产品工程师（AI应用方向）
+
+### 官方岗位来源
+小红书校园招聘官方岗位页。
+该岗位职位类型为客户端开发，base 北京 / 上海 / 杭州，岗位核心方向为 AI Native 研发工具链与 LLM 工程化落地。
 
 评测时，请复制该官方岗位页中的职位描述和职位要求原文。
 
