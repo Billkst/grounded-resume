@@ -4,7 +4,7 @@
 B3
 
 ## 样本类型
-AI 应用开发岗 / 素材完整 / 高风险
+AI 应用开发 / 技术产品交叉岗 / 素材完整 / 高风险
 
 ## 目标岗位信息
 
@@ -23,7 +23,20 @@ https://hr.sensetime.com/SU60fa3bdabef57c1023fc1cbc/pb/posDetail.html?postId=690
 ### 官方 JD 原文
 
 ```
-工作职责\n\n1.技术边界与场景洞察：参与ToB行业调研，从技术可行性视角评估大模型在具体场景下的能力边界，输出商业价值与技术落地性的机会分析。\n2.产品架构与逻辑设计：参与大模型产品0→1规划，负责定义产品的技术指标（如准确率、响应延时等），撰写逻辑严密的 PRD，主导Prompt或Agent交互逻辑设计。\n3.算法方案深度整合：衔接业务与技术团队，将需求转化为清晰的算法实现路径，参与RAG、SFT、CoT、Agent等技术方案的选型与设计讨论。\n4.数据闭环与效果调优： 参与产品商业化落地，通过分析Bad Case与用户反馈，设计评测集与验收标准，驱动模型效果持续优化与业务增长。\n\n任职要求\n\n1.本科及以上学历，计算机、人工智能、数学等专业，具备扎实的计算机基础优先。\n2.深入理解Transformer架构及LLM基本原理（如Attention、Embedding等）。\n3.熟悉LangChain、LlamaIndex、vLLM等大模型应用技术栈，及Agent设计模式。\n4.具备Python基础，能阅读算法代码；有跑通开源模型（如 Llama, Qwen, ChatGLM 等）或搭建Demo经验者优先。\n5.有阅读Arxiv前沿论文的习惯者优先。
+工作职责
+
+1.技术边界与场景洞察：参与ToB行业调研，从技术可行性视角评估大模型在具体场景下的能力边界，输出商业价值与技术落地性的机会分析。
+2.产品架构与逻辑设计：参与大模型产品0→1规划，负责定义产品的技术指标（如准确率、响应延时等），撰写逻辑严密的 PRD，主导Prompt或Agent交互逻辑设计。
+3.算法方案深度整合：衔接业务与技术团队，将需求转化为清晰的算法实现路径，参与RAG、SFT、CoT、Agent等技术方案的选型与设计讨论。
+4.数据闭环与效果调优： 参与产品商业化落地，通过分析Bad Case与用户反馈，设计评测集与验收标准，驱动模型效果持续优化与业务增长。
+
+任职要求
+
+1.本科及以上学历，计算机、人工智能、数学等专业，具备扎实的计算机基础优先。
+2.深入理解Transformer架构及LLM基本原理（如Attention、Embedding等）。
+3.熟悉LangChain、LlamaIndex、vLLM等大模型应用技术栈，及Agent设计模式。
+4.具备Python基础，能阅读算法代码；有跑通开源模型（如 Llama, Qwen, ChatGLM 等）或搭建Demo经验者优先。
+5.有阅读Arxiv前沿论文的习惯者优先。
 ```
 
 ---
@@ -40,7 +53,26 @@ https://hr.sensetime.com/SU60fa3bdabef57c1023fc1cbc/pb/posDetail.html?postId=690
 
 ## 用户原始素材包
 
-### 原始素材 1：大模型工具使用\n- 用过 ChatGPT、Claude、Kimi\n- 对 LLM 有基础了解，知道 Transformer 是大模型基础架构\n- 没有深入理解 Attention、Embedding 等底层原理\n\n### 原始素材 2：简单编程项目\n- 用 Python 写过一个简单的文档处理脚本\n- 没有使用 LangChain、LlamaIndex、vLLM 等框架\n- 没有跑通过开源模型或搭建过 Demo\n\n### 原始素材 3：AI 产品调研\n- 看过几篇关于 RAG 和 Agent 的微信公众号文章\n- 对 RAG 和 Agent 有基础概念了解\n- 没有阅读过 Arxiv 前沿论文\n- 没有做过系统性的技术方案选型或设计讨论\n\n### 原始素材 4：技术能力\n- 会 Python，能处理基础数据整理\n- 没有阅读算法代码的能力\n- 没有正式实习经历
+### 原始素材 1：大模型工具使用
+- 用过 ChatGPT、Claude、Kimi
+- 对 LLM 有基础了解，知道 Transformer 是大模型基础架构
+- 没有深入理解 Attention、Embedding 等底层原理
+
+### 原始素材 2：简单编程项目
+- 用 Python 写过一个简单的文档处理脚本
+- 没有使用 LangChain、LlamaIndex、vLLM 等框架
+- 没有跑通过开源模型或搭建过 Demo
+
+### 原始素材 3：AI 产品调研
+- 看过几篇关于 RAG 和 Agent 的微信公众号文章
+- 对 RAG 和 Agent 有基础概念了解
+- 没有阅读过 Arxiv 前沿论文
+- 没有做过系统性的技术方案选型或设计讨论
+
+### 原始素材 4：技术能力
+- 会 Python，能处理基础数据整理
+- 没有阅读算法代码的能力
+- 没有正式实习经历
 
 ---
 
