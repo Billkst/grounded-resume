@@ -130,3 +130,17 @@
 | **P2** | Claude Code Job Tailor | 验证 Bun 安装 → YAML 素材录入 → `@agent-job-tailor` 执行 → validation → PDF 生成；重点检查 agent 是否遵守真实性约束和 weighted scoring。 |
 | **P3** | Resume Tailoring Skill | 不做传统 smoke test，改为“静态 prompt 流程验证”：准备实习 JD + 已有 Markdown 简历，观察 Claude Code 对 SKILL.md 的遵循程度。 |
 | **不推荐** | Resume Optimizer AI | 静态评估已足够，无需运行。 |
+
+---
+
+## 6. Smoke Test 范围收敛决策
+
+**本阶段不实际运行 D 类项目，不做 base resume 适配。**
+
+原因：
+1. **任务形态差异**：D 类项目全部依赖已有简历，运行前必须人工构造 base resume，这会将 Smoke Test 目标从"原始素材 → 第一版实习简历"改变为"已有简历 → JD 优化"，偏离核心任务。
+2. **人工变量风险**：人工构造的 base resume 质量会直接影响输出，破坏与 B 类通用 LLM、C 类工具的公平对比基础。
+3. **部署成本高**：6 个项目涉及 FastAPI、Next.js、React Router、Bun、Chrome Extension、Claude Code 等多种技术栈，配置运行环境和 API key 的时间成本远超评估收益。
+4. **新增结论有限**：静态评估已充分回答核心问题——开源生态尚未覆盖"从零生成第一版实习简历"的任务，实际运行最多只能验证"已有简历优化"质量，对核心任务决策帮助有限。
+
+D 类项目的价值以**静态参考**形式保留，具体可借鉴点详见 `d_repos_smoke_test_scope_decision.md`。
