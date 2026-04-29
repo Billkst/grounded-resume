@@ -18,6 +18,9 @@ product/
 |---|---|---|
 | 问题定义 v1.0 | `requirements/问题定义 v1.0.md` | 核心任务定义、目标用户、产品机会点 |
 | AI 产品经理招聘要求 | `requirements/AI产品经理招聘要求.md` | 目标岗位 JD 参考 |
+| **MVP 工作流设计 v0.1** | **`designs/mvp-workflow-v0.1.md`** | **端到端工作流：输入→解析→映射→生成→校验→确认→输出** |
+| **核心模块设计 v0.1** | **`designs/core-modules-v0.1.md`** | **9 个核心模块的职责、接口与交互协议** |
+| **数据结构规格 v0.1** | **`specs/data-structures-v0.1.md`** | **JD 解析结果、素材事实、证据映射、简历章节等 Schema** |
 | C 类专用 AI 简历工具 Smoke Test 执行方案 | `decisions/C类专用AI简历工具SmokeTest执行方案 v0.1.md` | C 类工具评测执行方案 |
 | D 类开源项目 Repo Capability Review 执行方案 | `decisions/D类开源项目RepoCapabilityReview执行方案 v0.1.md` | D 类项目评审执行方案 |
 | D 类开源项目 Smoke Test 范围决策 | `decisions/d-repos-smoke-test-scope-decision.md` | 范围决策 |
@@ -25,6 +28,8 @@ product/
 
 ## 下一阶段
 
-- [ ] MVP 工作流设计 v0.1 → `designs/`
-- [ ] 技术规格文档 → `specs/`
+- [x] MVP 工作流设计 v0.1 → `designs/`
+- [x] 核心模块设计 v0.1 → `designs/`
+- [x] 数据结构规格 v0.1 → `specs/`
 - [ ] 架构决策记录（ADR）→ `decisions/`
+- [ ] MVP 技术实现计划 → `docs/superpowers/plans/`

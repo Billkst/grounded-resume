@@ -5,7 +5,7 @@
 ## 项目阶段
 
 - [x] **Baseline 阶段**：已完成 A/B/C/D 四类 baseline 评测，确认现有方案无法完整覆盖核心任务。
-- [ ] **MVP 工作流设计**：进行中。
+- [x] **MVP 工作流设计**：已完成三份设计文档。
 - [ ] **MVP 开发**：待启动。
 
 ## 仓库结构导航
@@ -26,6 +26,9 @@ grounded-resume/
 |---|---|---|
 | 问题定义 | `product/requirements/问题定义 v1.0.md` | 核心任务定义与产品机会点 |
 | Baseline 综合分析 | `research/baseline/reports/Baseline 综合分析报告 v1.0.md` | 四类 baseline 评测结论 |
+| **MVP 工作流设计** | **`product/designs/mvp-workflow-v0.1.md`** | **端到端工作流设计** |
+| **核心模块设计** | **`product/designs/core-modules-v0.1.md`** | **9 个核心模块职责与接口** |
+| **数据结构规格** | **`product/specs/data-structures-v0.1.md`** | **各阶段数据 Schema** |
 | 评测框架 | `research/templates/Baseline 评测框架 v0.1.md` | 评测方法论与评分维度 |
 | Smoke Test 汇总 | `research/baseline/reports/smoke-summary.md` | 10 个通用 LLM 初评汇总 |
 | Deep Test 汇总 | `research/baseline/reports/deep-summary.md` | ChatGPT / DeepSeek / GLM 深度评测汇总 |
