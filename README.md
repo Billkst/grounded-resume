@@ -1,13 +1,41 @@
 # grounded-resume
 
-## Baseline 阶段状态
+> 基于目标岗位 JD 和用户原始素材，生成一份岗位定制、基于真实经历、接近可投递且需用户确认的第一版实习简历。
 
-Baseline 阶段已完成：
+## 项目阶段
 
-- **B 类通用 LLM**：完成 Smoke + Deep Test。ChatGPT 是唯一强 baseline；GLM、DeepSeek 淘汰，仅作反例分析。
-- **C 类专用 AI 简历工具**：完成中文工具 Smoke Test。WonderCV / 全民简历 / BOSS 简历均未产生强 baseline；英文工具暂缓。
-- **D 类开源项目**：完成 Repo Capability Review。6 个项目全部依赖已有简历，没有一个支持"JD + 原始素材包 → 第一版实习简历"。
-- **A 类规则型 / ATS 工具**：完成范围收敛，不实测。
+- [x] **Baseline 阶段**：已完成 A/B/C/D 四类 baseline 评测，确认现有方案无法完整覆盖核心任务。
+- [ ] **MVP 工作流设计**：进行中。
+- [ ] **MVP 开发**：待启动。
 
-**最终结论：**
-现有方案没有完整覆盖"JD + 原始素材包 → 可信第一版实习简历"任务。下一阶段进入 MVP 工作流设计。
+## 仓库结构导航
+
+```
+grounded-resume/
+├── research/        # Baseline 阶段所有研究产出（评测数据、报告、模板）
+├── product/         # 产品文档（需求、设计、技术规格、决策）
+├── src/             # 源代码（MVP 核心引擎、管道、API）
+├── tests/           # 测试（单元测试、集成测试、评测基准）
+├── scripts/         # 工具脚本
+└── docs/            # 项目级文档（架构、指南、入门）
+```
+
+## 关键文档速查
+
+| 文档 | 路径 | 说明 |
+|---|---|---|
+| 问题定义 | `product/requirements/问题定义 v1.0.md` | 核心任务定义与产品机会点 |
+| Baseline 综合分析 | `research/baseline/reports/Baseline 综合分析报告 v1.0.md` | 四类 baseline 评测结论 |
+| 评测框架 | `research/templates/Baseline 评测框架 v0.1.md` | 评测方法论与评分维度 |
+| Smoke Test 汇总 | `research/baseline/reports/smoke-summary.md` | 10 个通用 LLM 初评汇总 |
+| Deep Test 汇总 | `research/baseline/reports/deep-summary.md` | ChatGPT / DeepSeek / GLM 深度评测汇总 |
+
+## 快速开始（开发者）
+
+1. 阅读 `product/requirements/问题定义 v1.0.md` 了解核心任务定义
+2. 查看 `research/baseline/README.md` 浏览 Baseline 评测数据
+3. 查看 `product/README.md` 了解产品文档索引
+
+## 贡献指南
+
+见 `docs/guides/CONTRIBUTING.md`（待创建）。
