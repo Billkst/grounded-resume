@@ -5,6 +5,9 @@ description = "Grounded, evidence-traceable resume generation for Chinese intern
 requires-python = ">=3.12"
 dependencies = [
   "pydantic>=2.7,<3.0",
+  "langgraph>=0.2,<0.3",
+  "fastapi>=0.111,<1.0",
+  "uvicorn[standard]>=0.30,<1.0",
 ]
 
 [project.optional-dependencies]
