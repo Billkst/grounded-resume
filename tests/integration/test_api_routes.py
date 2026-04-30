@@ -42,25 +42,31 @@ class _FakeGraph:
                         "title": "项目经历",
                         "order": 1,
                         "bullets": [
-                            {
-                                "id": "B001",
-                                "text": "参与整理课程项目知识库。",
-                                "evidence_refs": [
-                                    {
-                                        "mapping_id": "EM001",
-                                        "fact_ids": ["F001"],
-                                        "source_fragments": ["SF001"],
-                                    }
-                                ],
-                                "expression_level": "conservative",
-                                "rewrite_chain": [],
-                                "risk_level": "safe",
-                            }
+                            _build_bullet("B_SAFE", "参与整理课程项目知识库。", "safe"),
+                            _build_bullet("B_CAUTION", "协助分析用户反馈。", "caution"),
+                            _build_bullet("B_WARNING", "主导数据分析体系建设。", "warning"),
                         ],
                     }
                 ],
             },
         }
+
+
+def _build_bullet(bullet_id: str, text: str, risk_level: str) -> dict[str, object]:
+    return {
+        "id": bullet_id,
+        "text": text,
+        "evidence_refs": [
+            {
+                "mapping_id": "EM001",
+                "fact_ids": ["F001"],
+                "source_fragments": ["SF001"],
+            }
+        ],
+        "expression_level": "conservative",
+        "rewrite_chain": [],
+        "risk_level": risk_level,
+    }
 
 
 def _build_user_input() -> dict[str, object]:
@@ -133,3 +139,44 @@ def test_sessions_cors_preflight_allows_localhost_frontend() -> None:
 
     assert response.status_code == 200
     assert response.headers["access-control-allow-origin"] == "http://localhost:3000"
+
+
+def test_submit_session_decisions_returns_final_resume_markdown() -> None:
+    app = create_app()
+    app.dependency_overrides[get_workflow_graph] = lambda: _FakeGraph()
+    client = TestClient(app)
+    create_response = client.post("/sessions", json=_build_user_input())
+    session_id = create_response.json()["sessionId"]
+
+    response = client.post(
+        f"/sessions/{session_id}/decisions",
+        json={
+            "decisions": [
+                {"bulletId": "B_SAFE", "decision": "approve"},
+                {
+                    "bulletId": "B_CAUTION",
+                    "decision": "revise",
+                    "revisedText": "协助整理并分析 20 条用户反馈。",
+                },
+                {"bulletId": "B_WARNING", "decision": "reject"},
+            ]
+        },
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    resume_markdown = payload["finalOutput"]["resumeMarkdown"]
+    assert "参与整理课程项目知识库。" in resume_markdown
+    assert "协助整理并分析 20 条用户反馈。" in resume_markdown
+    assert "主导数据分析体系建设。" not in resume_markdown
+
+
+def test_submit_session_decisions_for_missing_session_returns_404() -> None:
+    client = TestClient(create_app())
+
+    response = client.post(
+        "/sessions/missing/decisions",
+        json={"decisions": [{"bulletId": "B_SAFE", "decision": "approve"}]},
+    )
+
+    assert response.status_code == 404
