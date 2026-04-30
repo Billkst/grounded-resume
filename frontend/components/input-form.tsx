@@ -1,8 +1,13 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+
+import { createSession } from "@/lib/api"
+import type { UserInput } from "@/lib/types"
 
 export default function InputForm() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,6 +18,8 @@ export default function InputForm() {
 
   const [materials, setMaterials] = useState([""])
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   const updateField = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -69,14 +76,47 @@ export default function InputForm() {
     return Object.keys(nextErrors).length === 0
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!validate()) return
-    const payload = {
-      ...formData,
-      materials: materials.filter((m) => m.trim()),
+
+    setIsSubmitting(true)
+    setSubmitError(null)
+
+    const payload: UserInput = {
+      profile: {
+        name: formData.name,
+        email: formData.email,
+      },
+      targetJob: {
+        companyName: formData.company,
+        jobTitle: formData.jobTitle,
+        jobDescription: formData.jobDescription,
+      },
+      materials: materials
+        .filter((material) => material.trim())
+        .map((material, index) => ({
+          id: `material-${index + 1}`,
+          type: "other",
+          title: `素材 ${index + 1}`,
+          content: material,
+        })),
+      preferences: {
+        tone: "balanced",
+        allowDowngrade: true,
+        showGapAnalysis: true,
+        maxBullets: 10,
+      },
     }
-    console.log("Submit:", payload)
+
+    try {
+      const session = await createSession(payload)
+      router.push(`/confirmation?sessionId=${session.sessionId}`)
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : "提交失败，请稍后重试")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const inputBase =
@@ -303,11 +343,14 @@ export default function InputForm() {
         </span>
         <button
           type="submit"
+          disabled={isSubmitting}
           className="rounded-lg bg-brass px-8 py-3.5 font-interface text-sm font-semibold text-ink shadow-lg shadow-brass/10 transition hover:shadow-[0_0_40px_rgba(184,137,59,0.25)] active:scale-[0.98]"
         >
-          生成简历
+          {isSubmitting ? "生成中..." : "生成简历"}
         </button>
       </div>
+
+      {submitError && <p className="mt-4 border-l-2 border-verdict-red pl-3 text-sm text-verdict-red">{submitError}</p>}
     </form>
   )
 }
