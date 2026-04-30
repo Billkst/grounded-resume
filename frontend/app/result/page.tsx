@@ -1,9 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { Suspense, useCallback, useEffect, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import ResumePreview from "@/components/resume-preview"
 import GapReport from "@/components/gap-report"
-import { mockOutput, mockGaps } from "@/lib/mock-data"
+import { ErrorState, LoadingState } from "@/components/page-state"
+import { getSession, type SessionDetail } from "@/lib/api"
+import { formatDraftMarkdown } from "@/lib/resume-format"
+import type { GapItem } from "@/lib/types"
 
 type TabKey = "resume" | "evidence" | "gaps" | "risks" | "guide"
 
@@ -81,29 +85,116 @@ function renderMarkdownContent(content: string) {
 }
 
 export default function ResultPage() {
-  const [activeTab, setActiveTab] = useState<TabKey>("resume")
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen bg-ink text-paper">
+          <LoadingState
+            title="正在加载生成报告"
+            message="系统正在读取后端生成的最终简历和分析附件。"
+          />
+        </main>
+      }
+    >
+      <ResultContent />
+    </Suspense>
+  )
+}
 
-  const evidenceAttachment = mockOutput.attachments.find(
+function ResultContent() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const sessionId = searchParams.get("sessionId")
+  const [activeTab, setActiveTab] = useState<TabKey>("resume")
+  const [session, setSession] = useState<SessionDetail | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const loadSession = useCallback(async () => {
+    if (!sessionId) {
+      setError("缺少 sessionId，无法加载生成结果。")
+      setIsLoading(false)
+      return
+    }
+
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const nextSession = await getSession(sessionId)
+      setSession(nextSession)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "加载生成结果失败。")
+    } finally {
+      setIsLoading(false)
+    }
+  }, [sessionId])
+
+  useEffect(() => {
+    void loadSession()
+  }, [loadSession])
+
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-ink text-paper">
+        <LoadingState
+          title="正在加载生成报告"
+          message="系统正在读取后端生成的最终简历和分析附件。"
+        />
+      </main>
+    )
+  }
+
+  if (error) {
+    return (
+      <main className="min-h-screen bg-ink text-paper">
+        <ErrorState message={error} onRetry={loadSession} />
+      </main>
+    )
+  }
+
+  const output = session?.finalOutput
+
+  if (!session || !output) {
+    const confirmationPath = sessionId
+      ? `/confirmation?sessionId=${encodeURIComponent(sessionId)}`
+      : "/confirmation"
+
+    return (
+      <main className="min-h-screen bg-ink text-paper">
+        <ErrorState
+          title="尚未生成最终结果"
+          message="当前会话还没有 finalOutput，请先返回确认页完成确认。"
+          onRetry={() => router.push(confirmationPath)}
+        />
+      </main>
+    )
+  }
+
+  const gaps: GapItem[] = session.result?.mappingResult?.gaps || []
+  const resumeMarkdown = output.resumeMarkdown || formatDraftMarkdown(output.resume)
+
+  const evidenceAttachment = output.attachments.find(
     (a) => a.type === "evidence_map"
   )
-  const riskAttachment = mockOutput.attachments.find(
+  const riskAttachment = output.attachments.find(
     (a) => a.type === "risk_summary"
   )
-  const guideAttachment = mockOutput.attachments.find(
+  const guideAttachment = output.attachments.find(
     (a) => a.type === "modification_guide"
   )
 
   const metrics = [
     {
       label: "置信度",
-      value: `${(mockOutput.metadata.confidence * 100).toFixed(0)}%`,
+      value: `${(output.metadata.confidence * 100).toFixed(0)}%`,
     },
     {
       label: "素材覆盖率",
-      value: `${(mockOutput.metadata.materialCoverage * 100).toFixed(0)}%`,
+      value: `${(output.metadata.materialCoverage * 100).toFixed(0)}%`,
     },
-    { label: "Gap 数", value: String(mockOutput.metadata.gapCount) },
-    { label: "版本", value: mockOutput.metadata.version },
+    { label: "Gap 数", value: String(output.metadata.gapCount) },
+    { label: "版本", value: output.metadata.version },
   ]
 
   return (
@@ -115,8 +206,8 @@ export default function ResultPage() {
               生成报告
             </h1>
             <p className="mt-3 font-serif text-base italic text-bone/70">
-              {mockOutput.metadata.targetJob.companyName} ·{" "}
-              {mockOutput.metadata.targetJob.jobTitle}
+              {output.metadata.targetJob.companyName} ·{" "}
+              {output.metadata.targetJob.jobTitle}
             </p>
           </div>
 
@@ -159,7 +250,7 @@ export default function ResultPage() {
 
         <section className="flex-1 bg-ink p-8">
           {activeTab === "resume" && (
-            <ResumePreview markdown={mockOutput.resumeMarkdown || ""} />
+            <ResumePreview markdown={resumeMarkdown} />
           )}
 
           {activeTab === "evidence" && (
@@ -172,7 +263,7 @@ export default function ResultPage() {
             </div>
           )}
 
-          {activeTab === "gaps" && <GapReport gaps={mockGaps} />}
+          {activeTab === "gaps" && <GapReport gaps={gaps} />}
 
           {activeTab === "risks" && (
             <div className="border border-bone/10 bg-graphite p-8">
