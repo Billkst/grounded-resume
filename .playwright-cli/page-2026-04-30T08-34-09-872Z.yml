@@ -1,0 +1,38 @@
+- generic [active] [ref=e1]:
+  - main [ref=e3]:
+    - generic [ref=e4]:
+      - heading "生成结果" [level=1] [ref=e5]
+      - paragraph [ref=e6]: 字节跳动 · AI产品经理实习生
+      - generic [ref=e7]:
+        - generic [ref=e8]: 置信度 72%
+        - generic [ref=e9]: 素材覆盖率 65%
+        - generic [ref=e10]: Gap 数 1
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - button "简历预览" [ref=e13]
+        - button "证据映射" [ref=e14]
+        - button "Gap 报告" [ref=e15]
+        - button "风险摘要" [ref=e16]
+        - button "修改指南" [ref=e17]
+      - generic [ref=e19]:
+        - blockquote [ref=e20]:
+          - paragraph [ref=e21]: 本简历由 grounded-resume 基于您提供的真实素材生成，所有经历均来自原始输入。请在投递前仔细核对表述准确性。
+          - generic [ref=e22]: — Level 2 声明：AI 辅助生成，用户负责最终内容真实性
+        - generic [ref=e23]:
+          - heading "张某某" [level=1] [ref=e24]
+          - paragraph [ref=e25]:
+            - strong [ref=e26]: 求职意向：
+            - text: AI产品经理实习生 @ 字节跳动
+          - paragraph [ref=e27]:
+            - strong [ref=e28]: 邮箱：
+            - text: zhang@example.com
+          - heading "教育背景" [level=2] [ref=e29]
+          - paragraph [ref=e30]:
+            - strong [ref=e31]: 某某大学
+            - text: · 计算机科学与技术 · 本科 · 2022.09 - 2026.06
+          - heading "项目经历" [level=2] [ref=e32]
+          - listitem [ref=e33]: 参与整理 5-6 款 AI 产品功能更新，输出结构化分析报告，为团队迭代提供参考
+          - listitem [ref=e34]: 主导用户调研模块，独立完成 20+ 用户访谈并提炼 3 条产品优化建议
+          - heading "技能" [level=2] [ref=e35]
+          - listitem [ref=e36]: 产品工具：Figma、Axure；技术栈：Python（基础）、Markdown
+  - alert [ref=e37]

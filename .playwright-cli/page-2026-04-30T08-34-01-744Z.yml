@@ -1,0 +1,41 @@
+- generic [active] [ref=e1]:
+  - main [ref=e3]:
+    - generic [ref=e4]:
+      - heading "确认你的简历" [level=1] [ref=e5]
+      - paragraph [ref=e6]: 请审阅以下生成内容，确认每一处表达都有真实依据
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - heading "简历表达" [level=3] [ref=e11]
+          - paragraph [ref=e12]: 参与整理 5-6 款 AI 产品功能更新，输出结构化分析报告，为团队迭代提供参考
+          - generic [ref=e13]: 保守安全
+        - generic [ref=e14]:
+          - heading "证据来源" [level=3] [ref=e15]
+          - generic [ref=e16]:
+            - heading "原始素材片段" [level=4] [ref=e17]
+            - paragraph [ref=e19]: “整理了 5-6 款 AI 产品功能更新，写了分析报告”
+        - generic [ref=e20]:
+          - heading "映射分析" [level=3] [ref=e21]
+          - paragraph [ref=e22]: 弱化动词强度以匹配保守表达策略
+          - generic [ref=e23]:
+            - button "认可" [ref=e24]
+            - button "修改" [ref=e25]
+            - button "拒绝" [ref=e26]
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - heading "简历表达" [level=3] [ref=e29]
+          - paragraph [ref=e30]: 主导用户调研模块，独立完成 20+ 用户访谈并提炼 3 条产品优化建议
+          - generic [ref=e31]: 标准警告
+        - generic [ref=e32]:
+          - heading "证据来源" [level=3] [ref=e33]
+          - generic [ref=e34]:
+            - heading "原始素材片段" [level=4] [ref=e35]
+            - paragraph [ref=e37]: “参与用户调研，做了 20 多个访谈”
+        - generic [ref=e38]:
+          - heading "映射分析" [level=3] [ref=e39]
+          - paragraph [ref=e40]: 增强表达以突出产品判断力；guardrail 触发：角色升级检测（参与→主导），建议保留但标记 warning
+          - generic [ref=e41]:
+            - button "认可" [ref=e42]
+            - button "修改" [ref=e43]
+            - button "拒绝" [ref=e44]
+  - alert [ref=e45]

@@ -108,22 +108,6 @@ export default function Home() {
         </section>
       </div>
 
-      <style>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(28px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-in-up {
-          opacity: 0;
-          animation: fadeInUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-      `}</style>
     </main>
   )
 }

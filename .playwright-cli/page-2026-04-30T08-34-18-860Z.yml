@@ -1,0 +1,38 @@
+- generic [active] [ref=e1]:
+  - main [ref=e3]:
+    - generic [ref=e4]:
+      - heading "grounded-resume" [level=1] [ref=e5]
+      - paragraph [ref=e6]: 基于真实经历，生成岗位定制简历
+    - generic [ref=e8]:
+      - heading "基本信息" [level=2] [ref=e10]
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - text: 姓名
+          - textbox "姓名" [ref=e13]:
+            - /placeholder: 你的姓名
+        - generic [ref=e14]:
+          - text: 邮箱
+          - textbox "邮箱" [ref=e15]:
+            - /placeholder: name@example.com
+        - generic [ref=e16]:
+          - text: 目标公司
+          - textbox "目标公司" [ref=e17]:
+            - /placeholder: 公司名称
+        - generic [ref=e18]:
+          - text: 岗位名称
+          - textbox "岗位名称" [ref=e19]:
+            - /placeholder: 例如：前端开发工程师
+      - generic [ref=e20]:
+        - text: 岗位描述
+        - textbox "岗位描述" [ref=e21]:
+          - /placeholder: 请粘贴完整的岗位 JD，至少 50 个字符
+        - generic [ref=e23]: 当前 0 字符
+      - generic [ref=e24]:
+        - heading "个人素材" [level=2] [ref=e25]
+        - paragraph [ref=e26]: 添加你的项目经历、实习经历、研究成果等原始素材，至少填写一项。
+      - generic [ref=e28]:
+        - generic [ref=e30]: 素材 1
+        - textbox "描述一段经历，包含背景、你的职责、使用的技术和取得的成果..." [ref=e31]
+      - button "+添加素材" [ref=e32]
+      - button "生成简历" [ref=e34]
+  - alert [ref=e35]
