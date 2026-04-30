@@ -1,3 +1,3 @@
-from .expression_guard import ExpressionGuard
+from .conservative_mode import ConservativeMode
 
-__all__ = ["ExpressionGuard"]
+__all__ = ["ConservativeMode"]
