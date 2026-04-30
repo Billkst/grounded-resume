@@ -20,12 +20,13 @@ export interface SessionDetail {
   result?: {
     draft: ResumeDraft
     mappingResult: EvidenceMappingResult
+    userInput?: UserInput
   }
   finalOutput?: ResumeOutput
 }
 
 export interface SubmitDecisionsPayload {
-  userDecisions: UserDecision[]
+  decisions: UserDecision[]
   gapAcknowledgments?: GapAcknowledgment[]
 }
 

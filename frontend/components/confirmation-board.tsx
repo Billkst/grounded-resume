@@ -1,10 +1,33 @@
 "use client"
 
-import { ResumeBullet } from "@/lib/types"
+import { useState } from "react"
+import { ResumeBullet, UserDecision, UserDecisionValue } from "@/lib/types"
 import EvidenceCard from "./evidence-card"
 
 interface ConfirmationBoardProps {
   bullets: ResumeBullet[]
+  isSubmitting: boolean
+  onSubmit: (decisions: UserDecision[]) => void
+}
+
+const decisionLabels: Record<UserDecisionValue, string> = {
+  approve: "认可",
+  revise: "修改",
+  reject: "拒绝",
+}
+
+const decisionClasses: Record<UserDecisionValue, string> = {
+  approve: "border-brass/30 text-brass hover:bg-brass/10 hover:border-brass/60",
+  revise:
+    "border-oxidized-cyan/30 text-oxidized-cyan hover:bg-oxidized-cyan/10 hover:border-oxidized-cyan/60",
+  reject:
+    "border-verdict-red/30 text-verdict-red hover:bg-verdict-red/10 hover:border-verdict-red/60",
+}
+
+const activeDecisionClasses: Record<UserDecisionValue, string> = {
+  approve: "bg-brass/10 border-brass/60",
+  revise: "bg-oxidized-cyan/10 border-oxidized-cyan/60",
+  reject: "bg-verdict-red/10 border-verdict-red/60",
 }
 
 const expressionLabels: Record<string, string> = {
@@ -50,7 +73,44 @@ function getRiskClasses(level: string): string {
   }
 }
 
-export default function ConfirmationBoard({ bullets }: ConfirmationBoardProps) {
+export default function ConfirmationBoard({
+  bullets,
+  isSubmitting,
+  onSubmit,
+}: ConfirmationBoardProps) {
+  const [decisions, setDecisions] = useState<Record<string, UserDecisionValue>>({})
+  const [revisions, setRevisions] = useState<Record<string, string>>({})
+
+  function selectDecision(bulletId: string, decision: UserDecisionValue) {
+    setDecisions((current) => ({ ...current, [bulletId]: decision }))
+    if (decision === "revise") {
+      setRevisions((current) => ({
+        ...current,
+        [bulletId]: current[bulletId] ?? bullets.find((bullet) => bullet.id === bulletId)?.text ?? "",
+      }))
+    }
+  }
+
+  function updateRevision(bulletId: string, revisedText: string) {
+    setRevisions((current) => ({ ...current, [bulletId]: revisedText }))
+  }
+
+  function buildPayload(): UserDecision[] {
+    const timestamp = new Date().toISOString()
+
+    return bullets.map((bullet) => {
+      const decision = decisions[bullet.id] ?? "approve"
+      const revisedText = decision === "revise" ? revisions[bullet.id] || bullet.text : undefined
+
+      return {
+        confirmationItemId: bullet.id,
+        decision,
+        revisedText,
+        timestamp,
+      }
+    })
+  }
+
   return (
     <div className="space-y-4">
       {bullets.map((bullet) => {
@@ -66,6 +126,7 @@ export default function ConfirmationBoard({ bullets }: ConfirmationBoardProps) {
           bullet.rewriteChain.length > 0
             ? bullet.rewriteChain.map((s) => s.reason).join("；")
             : "基于证据映射自动生成"
+        const selectedDecision = decisions[bullet.id] ?? "approve"
 
         return (
           <div
@@ -117,31 +178,47 @@ export default function ConfirmationBoard({ bullets }: ConfirmationBoardProps) {
                 <p className="font-interface text-sm leading-relaxed text-bone/70">
                   {mappingReasoning}
                 </p>
-                <div className="mt-auto flex gap-2 pt-3">
-                  <button
-                    type="button"
-                    className="flex-1 rounded border border-brass/30 px-3 py-2 text-xs font-medium text-brass transition hover:bg-brass/10 hover:border-brass/60"
-                  >
-                    认可
-                  </button>
-                  <button
-                    type="button"
-                    className="flex-1 rounded border border-oxidized-cyan/30 px-3 py-2 text-xs font-medium text-oxidized-cyan transition hover:bg-oxidized-cyan/10 hover:border-oxidized-cyan/60"
-                  >
-                    修改
-                  </button>
-                  <button
-                    type="button"
-                    className="flex-1 rounded border border-verdict-red/30 px-3 py-2 text-xs font-medium text-verdict-red transition hover:bg-verdict-red/10 hover:border-verdict-red/60"
-                  >
-                    拒绝
-                  </button>
+                <div className="mt-auto flex flex-col gap-3 pt-3">
+                  <div className="flex gap-2">
+                    {(["approve", "revise", "reject"] as UserDecisionValue[]).map(
+                      (decision) => (
+                        <button
+                          key={decision}
+                          type="button"
+                          onClick={() => selectDecision(bullet.id, decision)}
+                          className={`flex-1 rounded border px-3 py-2 text-xs font-medium transition ${decisionClasses[decision]} ${
+                            selectedDecision === decision ? activeDecisionClasses[decision] : ""
+                          }`}
+                        >
+                          {decisionLabels[decision]}
+                        </button>
+                      )
+                    )}
+                  </div>
+                  {selectedDecision === "revise" && (
+                    <textarea
+                      value={revisions[bullet.id] ?? bullet.text}
+                      onChange={(event) => updateRevision(bullet.id, event.target.value)}
+                      className="min-h-24 w-full rounded border border-oxidized-cyan/20 bg-ink/60 px-3 py-2 font-interface text-sm leading-relaxed text-paper outline-none transition placeholder:text-bone/30 focus:border-oxidized-cyan/60 focus:bg-ink/80"
+                      placeholder="输入修改后的简历表达"
+                    />
+                  )}
                 </div>
               </div>
             </div>
           </div>
         )
       })}
+      <div className="sticky bottom-4 flex justify-end pt-2">
+        <button
+          type="button"
+          onClick={() => onSubmit(buildPayload())}
+          disabled={isSubmitting}
+          className="rounded border border-brass/40 bg-brass/10 px-6 py-3 font-interface text-sm font-semibold text-brass shadow-lg shadow-ink/40 transition hover:border-brass/70 hover:bg-brass/15 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {isSubmitting ? "提交中..." : "提交确认并生成结果"}
+        </button>
+      </div>
     </div>
   )
 }
