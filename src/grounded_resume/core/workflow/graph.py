@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from typing import Callable
 
+from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.graph import END, StateGraph
+from langgraph.graph.state import CompiledStateGraph
 
 from grounded_resume.core.workflow.nodes import (
     generate_draft_node,
@@ -17,7 +19,9 @@ StateDict = dict[str, object]
 WorkflowNode = Callable[[WorkflowState], WorkflowState]
 
 
-def build_workflow_graph() -> object:
+def build_workflow_graph(
+    checkpointer: BaseCheckpointSaver[str] | None = None,
+) -> CompiledStateGraph:
     graph: StateGraph = StateGraph(StateDict)
 
     def _wrap(node_fn: WorkflowNode) -> Callable[[StateDict], StateDict]:
@@ -38,4 +42,7 @@ def build_workflow_graph() -> object:
     _ = graph.add_edge("map_evidence", "generate_draft")
     _ = graph.add_edge("generate_draft", END)
 
-    return graph.compile()  # pyright: ignore[reportUnknownMemberType]
+    if checkpointer is None:
+        return graph.compile()  # pyright: ignore[reportUnknownMemberType]
+
+    return graph.compile(checkpointer=checkpointer)  # pyright: ignore[reportUnknownMemberType]
