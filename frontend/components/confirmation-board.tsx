@@ -24,35 +24,35 @@ const riskLabels: Record<string, string> = {
 function getExpressionClasses(level: string): string {
   switch (level) {
     case "conservative":
-      return "bg-charcoal/5 text-charcoal/60"
+      return "text-bone/60 border-bone/10"
     case "emphasized":
-      return "bg-terracotta/10 text-terracotta"
+      return "text-brass border-brass/20"
     case "literal":
-      return "bg-charcoal/5 text-charcoal/70"
+      return "text-bone/70 border-bone/10"
     case "standard":
-      return "bg-cream text-charcoal border border-charcoal/10"
+      return "text-paper border-paper/10"
     default:
-      return "bg-cream text-charcoal border border-charcoal/10"
+      return "text-paper border-paper/10"
   }
 }
 
 function getRiskClasses(level: string): string {
   switch (level) {
     case "safe":
-      return "bg-sage/10 text-sage"
+      return "text-evidence-green border-evidence-green/20"
     case "warning":
     case "caution":
-      return "bg-amber/10 text-amber"
+      return "text-warning-amber border-warning-amber/20"
     case "redline":
-      return "bg-softred/10 text-softred"
+      return "text-verdict-red border-verdict-red/20"
     default:
-      return "bg-cream text-charcoal border border-charcoal/10"
+      return "text-paper border-paper/10"
   }
 }
 
 export default function ConfirmationBoard({ bullets }: ConfirmationBoardProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {bullets.map((bullet) => {
         const expressionLabel = expressionLabels[bullet.expressionLevel] || bullet.expressionLevel
         const riskLabel = riskLabels[bullet.riskLevel] || bullet.riskLevel
@@ -70,65 +70,73 @@ export default function ConfirmationBoard({ bullets }: ConfirmationBoardProps) {
         return (
           <div
             key={bullet.id}
-            className="flex flex-col gap-6 rounded-xl border border-charcoal/8 bg-warmgray p-6 md:grid md:grid-cols-3 md:gap-6"
+            className="group relative rounded-lg border border-bone/8 bg-graphite/40 p-5 transition-all duration-300 hover:border-bone/20 hover:shadow-xl hover:shadow-ink/50 hover:-translate-y-0.5"
           >
-            <div className="flex flex-col gap-3">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-charcoal/50">
-                简历表达
-              </h3>
-              <p className="font-serif text-base leading-relaxed text-charcoal">
-                {bullet.text}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <span
-                  className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${expressionClasses}`}
-                >
-                  {expressionLabel}
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-bone/5">
+              <span className="font-mono text-[11px] text-bone/50 tracking-wider">
+                EVIDENCE #{bullet.id}
+              </span>
+              <span
+                className={`inline-flex rounded px-2 py-0.5 text-[10px] font-medium border font-mono uppercase tracking-wider ${riskClasses}`}
+              >
+                {riskLabel}
+              </span>
+            </div>
+
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+              <div className="flex-[1.3] flex flex-col gap-3 min-w-0">
+                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-bone/30">
+                  简历表达
                 </span>
-                <span
-                  className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${riskClasses}`}
-                >
-                  {riskLabel}
-                </span>
+                <p className="font-display text-base leading-relaxed text-paper">
+                  {bullet.text}
+                </p>
+                <div className="flex flex-wrap gap-2 mt-auto">
+                  <span
+                    className={`inline-flex rounded px-2 py-0.5 text-[10px] font-medium border font-mono uppercase tracking-wider ${expressionClasses}`}
+                  >
+                    {expressionLabel}
+                  </span>
+                </div>
               </div>
-            </div>
 
-            <div className="flex flex-col gap-3">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-charcoal/50">
-                证据来源
-              </h3>
-              <EvidenceCard
-                sourceMaterialTitle="原始素材片段"
-                directQuotes={directQuotes}
-              />
-            </div>
+              <div className="flex-1 flex flex-col gap-3 min-w-0">
+                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-bone/30">
+                  证据来源
+                </span>
+                <EvidenceCard
+                  sourceMaterialTitle="原始素材片段"
+                  directQuotes={directQuotes}
+                />
+              </div>
 
-            <div className="flex flex-col gap-3">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-charcoal/50">
-                映射分析
-              </h3>
-              <p className="text-sm leading-relaxed text-charcoal/80">
-                {mappingReasoning}
-              </p>
-              <div className="mt-auto flex gap-2 pt-3">
-                <button
-                  type="button"
-                  className="flex-1 rounded-lg bg-sage/10 px-3 py-2 text-sm font-medium text-sage transition hover:bg-sage/20"
-                >
-                  认可
-                </button>
-                <button
-                  type="button"
-                  className="flex-1 rounded-lg bg-amber/10 px-3 py-2 text-sm font-medium text-amber transition hover:bg-amber/20"
-                >
-                  修改
-                </button>
-                <button
-                  type="button"
-                  className="flex-1 rounded-lg bg-softred/10 px-3 py-2 text-sm font-medium text-softred transition hover:bg-softred/20"
-                >
-                  拒绝
-                </button>
+              <div className="flex-[1.1] flex flex-col gap-3 min-w-0">
+                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-bone/30">
+                  映射分析
+                </span>
+                <p className="font-interface text-sm leading-relaxed text-bone/70">
+                  {mappingReasoning}
+                </p>
+                <div className="mt-auto flex gap-2 pt-3">
+                  <button
+                    type="button"
+                    className="flex-1 rounded border border-brass/30 px-3 py-2 text-xs font-medium text-brass transition hover:bg-brass/10 hover:border-brass/60"
+                  >
+                    认可
+                  </button>
+                  <button
+                    type="button"
+                    className="flex-1 rounded border border-oxidized-cyan/30 px-3 py-2 text-xs font-medium text-oxidized-cyan transition hover:bg-oxidized-cyan/10 hover:border-oxidized-cyan/60"
+                  >
+                    修改
+                  </button>
+                  <button
+                    type="button"
+                    className="flex-1 rounded border border-verdict-red/30 px-3 py-2 text-xs font-medium text-verdict-red transition hover:bg-verdict-red/10 hover:border-verdict-red/60"
+                  >
+                    拒绝
+                  </button>
+                </div>
               </div>
             </div>
           </div>
