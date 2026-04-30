@@ -47,7 +47,10 @@ class UserConfirmation:
                     return updated
 
                 if decision == "revise":
-                    bullet.user_override = UserOverride(approved=True, modified_text=bullet.text)
+                    bullet.user_override = UserOverride(
+                        approved=True,
+                        modified_text=bullet.text,
+                    )
                     return updated
 
                 if decision == "approve":

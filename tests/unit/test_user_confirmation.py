@@ -82,6 +82,17 @@ def test_apply_decision_approve_keeps_bullet_and_marks_override() -> None:
     assert bullet.user_override.approved is True
 
 
+def test_apply_revision_updates_text() -> None:
+    draft = _build_draft()
+
+    updated = UserConfirmation.apply_decision(draft, "B_SAFE", "revise")
+
+    bullet = updated.sections[0].bullets[0]
+    assert bullet.user_override is not None
+    assert bullet.user_override.approved is True
+    assert bullet.user_override.modified_text == "参与整理课程项目知识库。"
+
+
 def test_apply_decision_reject_removes_bullet() -> None:
     draft = _build_draft()
 
