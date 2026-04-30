@@ -15,7 +15,52 @@ class _FakeGraph:
 
     def invoke(self, state: dict[str, object]) -> dict[str, object]:
         self.last_state = state
-        return {**state, "draft": {"version": 1}}
+        return {
+            **state,
+            "jd_result": {"requirements": []},
+            "material_result": {"facts": [], "fragments": []},
+            "mapping_result": {
+                "mappings": [],
+                "gaps": [
+                    {
+                        "id": "GAP001",
+                        "jd_requirement_id": "C001",
+                        "gap_type": "missing_evidence",
+                        "description": "缺少数据分析经验",
+                        "severity": "major",
+                    }
+                ],
+                "overclaims": [],
+                "mapping_confidence": 0.5,
+            },
+            "draft": {
+                "version": 1,
+                "sections": [
+                    {
+                        "id": "S001",
+                        "section_type": "experience",
+                        "title": "项目经历",
+                        "order": 1,
+                        "bullets": [
+                            {
+                                "id": "B001",
+                                "text": "参与整理课程项目知识库。",
+                                "evidence_refs": [
+                                    {
+                                        "mapping_id": "EM001",
+                                        "fact_ids": ["F001"],
+                                        "source_fragments": ["SF001"],
+                                    }
+                                ],
+                                "expression_level": "conservative",
+                                "rewrite_chain": [],
+                                "risk_level": "safe",
+                            }
+                        ],
+                    }
+                ],
+            },
+        }
 
 
 def _build_user_input() -> dict[str, object]:
@@ -61,12 +106,30 @@ def test_post_sessions_runs_workflow_and_returns_session_status() -> None:
     assert response.status_code == 200
     payload = response.json()
     assert payload["status"] == "completed"
-    assert isinstance(payload["session_id"], str)
-    assert payload["session_id"]
+    assert isinstance(payload["sessionId"], str)
+    assert payload["sessionId"]
     assert fake_graph.last_state is not None
     assert fake_graph.last_state["user_input"]["profile"]["name"] == "张三"
 
-    detail_response = client.get(f"/sessions/{payload['session_id']}")
+    detail_response = client.get(f"/sessions/{payload['sessionId']}")
 
     assert detail_response.status_code == 200
-    assert detail_response.json() == {"session_id": payload["session_id"], "status": "completed"}
+    detail_payload = detail_response.json()
+    assert detail_payload["sessionId"] == payload["sessionId"]
+    assert detail_payload["status"] == "completed"
+    assert detail_payload["result"]["draft"]["version"] == 1
+
+
+def test_sessions_cors_preflight_allows_localhost_frontend() -> None:
+    client = TestClient(create_app())
+
+    response = client.options(
+        "/sessions",
+        headers={
+            "Origin": "http://localhost:3000",
+            "Access-Control-Request-Method": "POST",
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"] == "http://localhost:3000"
