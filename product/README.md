@@ -33,4 +33,16 @@ product/
 - [x] 核心模块设计 v0.1 → `designs/`
 - [x] 数据结构规格 v0.1 → `specs/`
 - [x] 架构决策记录（ADR）→ `decisions/`
-- [ ] MVP 技术实现计划 → `docs/superpowers/plans/`
+- [x] MVP 技术实现计划 → `docs/superpowers/plans/`
+
+## 执行计划索引
+
+| 计划 | 路径 | 说明 | 依赖 |
+|---|---|---|---|
+| 总览 | `docs/superpowers/plans/2026-04-30-mvp-execution-plan-overview.md` | 全部 6 个计划的拆分总览、依赖关系、执行顺序 | - |
+| Plan A | `docs/superpowers/plans/2026-04-30-plan-a-data-models-infrastructure.md` | 数据模型与基础设施（完整详细计划） | 无 |
+| Plan B | `docs/superpowers/plans/2026-04-30-plan-b-parsing-mapping.md` | 解析与映射层（概要计划） | Plan A |
+| Plan C | `docs/superpowers/plans/2026-04-30-plan-c-generation-validation.md` | 生成与校验层（概要计划） | Plan A, B |
+| Plan D | `docs/superpowers/plans/2026-04-30-plan-d-confirmation-output.md` | 用户确认与输出层（概要计划） | Plan A, B, C |
+| Plan E | `docs/superpowers/plans/2026-04-30-plan-e-workflow-api.md` | LangGraph 编排与 API（概要计划） | Plan A, B, C, D |
+| Plan F | `docs/superpowers/plans/2026-04-30-plan-f-web-frontend.md` | Web 前端（概要计划） | Plan E |
