@@ -120,3 +120,74 @@ def test_formatter_includes_gap_report_when_gaps_exist() -> None:
     gap_report = next(attachment for attachment in output.attachments if attachment.type == "gap_report")
     assert gap_report.title == "Gap 报告"
     assert "缺少数据分析经验" in gap_report.content
+
+
+def test_formatter_includes_all_attachment_types() -> None:
+    output = ResumeFormatter().format(
+        confirmed_resume=_build_resume(),
+        evidence_mapping=EvidenceMappingResult(
+            mappings=[],
+            gaps=[],
+            overclaims=[],
+            mapping_confidence=0.8,
+        ),
+        gap_items=[
+            GapItem(
+                id="GAP001",
+                jd_requirement_id="C001",
+                gap_type="missing_evidence",
+                description="缺少数据分析经验",
+                severity="major",
+            )
+        ],
+        risk_flags=[
+            RiskFlag(
+                bullet_id="B001",
+                risk_type="scope_ambiguity",
+                severity="medium",
+                description="表述略泛",
+                suggested_fix="补充具体动作",
+                auto_resolved=False,
+            )
+        ],
+        target_job=_build_target_job(),
+    )
+
+    assert {attachment.type for attachment in output.attachments} == {
+        "evidence_map",
+        "gap_report",
+        "risk_summary",
+        "modification_guide",
+    }
+    assert output.metadata.gap_count == 1
+
+
+def test_formatter_gap_report_includes_gap_descriptions() -> None:
+    output = ResumeFormatter().format(
+        confirmed_resume=_build_resume(),
+        evidence_mapping=EvidenceMappingResult(mappings=[], gaps=[], overclaims=[], mapping_confidence=0.0),
+        gap_items=[
+            GapItem(
+                id="GAP001",
+                jd_requirement_id="C001",
+                gap_type="missing_evidence",
+                description="缺少数据分析经验",
+                severity="major",
+                recommendation="补充课程项目中的数据处理内容",
+            ),
+            GapItem(
+                id="GAP002",
+                jd_requirement_id="C002",
+                gap_type="insufficient_depth",
+                description="缺少用户访谈经验",
+                severity="minor",
+            ),
+        ],
+        risk_flags=[],
+        target_job=_build_target_job(),
+    )
+
+    gap_report = next(attachment for attachment in output.attachments if attachment.type == "gap_report")
+    assert "缺少数据分析经验" in gap_report.content
+    assert "补充课程项目中的数据处理内容" in gap_report.content
+    assert "缺少用户访谈经验" in gap_report.content

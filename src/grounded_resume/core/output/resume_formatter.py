@@ -24,6 +24,28 @@ class ResumeFormatter:
         target_job: TargetJob,
     ) -> ResumeOutput:
         resume_markdown = self._format_resume_markdown(confirmed_resume)
+        attachments = [
+            OutputAttachment(
+                type="evidence_map",
+                title="证据映射表",
+                content=f"{resume_markdown}\n\n{self._format_evidence_map(evidence_mapping)}",
+            ),
+            OutputAttachment(
+                type="gap_report",
+                title="Gap 报告",
+                content=self._format_gap_report(gap_items),
+            ),
+            OutputAttachment(
+                type="risk_summary",
+                title="风险提示摘要",
+                content=self._format_risk_summary(risk_flags),
+            ),
+            OutputAttachment(
+                type="modification_guide",
+                title="修改建议指南",
+                content=self._format_modification_guide(),
+            ),
+        ]
 
         return ResumeOutput(
             resume=confirmed_resume,
@@ -35,28 +57,7 @@ class ResumeFormatter:
                 material_coverage=self._material_coverage(evidence_mapping, gap_items),
                 gap_count=len(gap_items),
             ),
-            attachments=[
-                OutputAttachment(
-                    type="evidence_map",
-                    title="证据映射表",
-                    content=f"{resume_markdown}\n\n{self._format_evidence_map(evidence_mapping)}",
-                ),
-                OutputAttachment(
-                    type="gap_report",
-                    title="Gap 报告",
-                    content=self._format_gap_report(gap_items),
-                ),
-                OutputAttachment(
-                    type="risk_summary",
-                    title="风险提示摘要",
-                    content=self._format_risk_summary(risk_flags),
-                ),
-                OutputAttachment(
-                    type="modification_guide",
-                    title="修改建议指南",
-                    content=self._format_modification_guide(),
-                ),
-            ],
+            attachments=attachments,
         )
 
     def _format_resume_markdown(self, draft: ResumeDraft) -> str:
