@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-cream: #FDFCF8;
+  --color-warmgray: #F5F3EE;
+  --color-charcoal: #2D2D2D;
+  --color-terracotta: #C67B5C;
+  --color-sage: #8B9D83;
+  --color-amber: #D4A373;
+  --color-softred: #C97B7B;
+}
+
+body {
+  color: var(--color-charcoal);
+  background: var(--color-cream);
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
