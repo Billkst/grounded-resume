@@ -20,7 +20,7 @@ function parseMarkdownToElements(text: string) {
       elements.push(
         <h1
           key={i}
-          className="font-display text-3xl font-bold tracking-tight text-charcoal"
+          className="font-display text-3xl font-bold tracking-tight text-ink"
         >
           {parseInline(trimmed.slice(2))}
         </h1>
@@ -29,7 +29,7 @@ function parseMarkdownToElements(text: string) {
       elements.push(
         <h2
           key={i}
-          className="mt-6 mb-3 font-serif text-xl font-semibold text-charcoal"
+          className="mt-6 mb-3 font-display text-xl font-semibold text-ink"
         >
           {parseInline(trimmed.slice(3))}
         </h2>
@@ -38,14 +38,14 @@ function parseMarkdownToElements(text: string) {
       elements.push(
         <li
           key={i}
-          className="ml-5 list-disc py-1 leading-relaxed text-charcoal/90"
+          className="ml-5 list-disc py-1 font-serif leading-relaxed text-ink/90"
         >
           {parseInline(trimmed.slice(2))}
         </li>
       )
     } else {
       elements.push(
-        <p key={i} className="leading-relaxed text-charcoal/90">
+        <p key={i} className="font-serif leading-relaxed text-ink/90">
           {parseInline(trimmed)}
         </p>
       )
@@ -60,7 +60,7 @@ function parseInline(text: string): React.ReactNode {
   return parts.map((part, idx) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={idx} className="font-semibold text-charcoal">
+        <strong key={idx} className="font-semibold text-ink">
           {part.slice(2, -2)}
         </strong>
       )
@@ -73,18 +73,31 @@ export default function ResumePreview({ markdown }: ResumePreviewProps) {
   const elements = parseMarkdownToElements(markdown)
 
   return (
-    <div className="space-y-2">
-      <blockquote className="mb-6 border-l-4 border-terracotta bg-warmgray/60 px-5 py-4 italic text-charcoal/80">
-        <p className="font-serif text-sm leading-relaxed">
-          本简历由 grounded-resume 基于您提供的真实素材生成，所有经历均来自原始输入。请在投递前仔细核对表述准确性。
-        </p>
-        <footer className="mt-2 text-xs text-charcoal/50 not-italic">
-          — Level 2 声明：AI 辅助生成，用户负责最终内容真实性
-        </footer>
-      </blockquote>
+    <div className="mx-auto max-w-3xl">
+      <div className="relative">
+        <div className="absolute inset-0 translate-x-1 translate-y-2 bg-ink/30 blur-md" />
 
-      <div className="rounded-xl border border-charcoal/8 bg-cream p-8 shadow-sm">
-        {elements}
+        <div className="relative bg-paper p-10 shadow-2xl">
+          <div className="mb-8 flex items-center justify-between border-b border-ink/10 pb-4">
+            <div className="inline-flex items-center gap-2 border border-evidence-green/30 bg-evidence-green/10 px-3 py-1.5">
+              <span className="inline-block h-2 w-2 rounded-full bg-evidence-green" />
+              <span className="font-mono text-[10px] uppercase tracking-widest text-evidence-green">
+                Level 2 Declaration
+              </span>
+            </div>
+            <span className="font-mono text-[10px] uppercase tracking-wider text-ink/40">
+              AI-Assisted · User Verified
+            </span>
+          </div>
+
+          <div className="space-y-2">{elements}</div>
+
+          <div className="mt-10 border-t border-ink/10 pt-4 text-center">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-ink/30">
+              Grounded Resume · Forensic Atelier
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )
