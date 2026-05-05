@@ -1,7 +1,33 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Protocol
+
+
+class LLMError(Exception):
+    """Base exception for LLM provider errors."""
+
+
+class ProviderError(LLMError):
+    """Raised when a provider fails to complete a request."""
+
+
+class AuthError(LLMError):
+    """Raised when authentication with a provider fails."""
+
+
+class RateLimitError(LLMError):
+    """Raised when rate limit is exceeded."""
+
+
+class TimeoutError(LLMError):
+    """Raised when a request times out."""
+
+
+@dataclass(frozen=True)
+class Message:
+    role: str  # "system" | "user" | "assistant"
+    content: str
 
 
 @dataclass(frozen=True)
@@ -13,12 +39,14 @@ class ProviderPreset:
     auth_modes: tuple[str, ...]
 
 
-@dataclass(frozen=True)
+@dataclass
 class LLMRequest:
     model: str
-    system_prompt: str
-    user_prompt: str
-    temperature: float = 0
+    messages: list[Message] = field(default_factory=list)
+    temperature: float = 0.0
+    max_tokens: int = 4000
+    response_format: str = "text"  # "text" | "json"
+    timeout_s: int = 120
 
 
 @dataclass(frozen=True)
