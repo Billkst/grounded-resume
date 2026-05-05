@@ -1,0 +1,11 @@
+temperature: 0.1
+reasoning_effort: max
+max_tokens: 8192
+
+system_extra: |
+  禁止：
+  - 输出Markdown代码块包裹JSON，只输出纯JSON
+  - 补足路径只写"提升XX能力"而不写具体项目
+  - 列出超过5条核心差距
+  - 使用产品内部术语（gap_id、mapping、evidence等）
+  - 对校招生提出需要3年以上工作经验才能完成的补足路径
