@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pydantic import Field
+
 from grounded_resume.core.models.schemas import StrictModel
 
 
@@ -12,7 +14,7 @@ class HardRequirement(StrictModel):
 
 class CoreCapability(StrictModel):
     name: str
-    weight: int  # 1-10
+    weight: int = Field(ge=1, le=10)
     description: str
 
 
@@ -56,7 +58,7 @@ class ExpressionTip(StrictModel):
 
 
 class GapReport(StrictModel):
-    overall_score: int  # 0-100
+    overall_score: int = Field(ge=0, le=100)
     summary: str
     blockers: list[BlockerItem]
     critical_gaps: list[CriticalGapItem]
