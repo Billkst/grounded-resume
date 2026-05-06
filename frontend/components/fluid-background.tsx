@@ -60,31 +60,54 @@ float fbm(vec2 p) {
 
 void main() {
   vec2 uv = gl_FragCoord.xy / u_resolution;
-  float t = u_time * 0.08;
+  float t = u_time * 0.06;
 
-  // Organic flowing noise
+  // Domain-warped fbm for organic, cloud-like flow
   vec2 q = vec2(
-    fbm(uv * 2.0 + vec2(t, t * 0.7)),
-    fbm(uv * 2.0 + vec2(t * 1.3, -t * 0.5))
+    fbm(uv * 1.2 + vec2(t * 0.5, t * 0.3)),
+    fbm(uv * 1.2 + vec2(-t * 0.2, t * 0.4))
   );
 
   vec2 r = vec2(
-    fbm(uv * 2.0 + q + vec2(t * 0.4, t * 0.2) + vec2(1.7, 9.2)),
-    fbm(uv * 2.0 + q + vec2(t * 0.3, t * 0.6) + vec2(8.3, 2.8))
+    fbm(uv * 1.5 + q + vec2(t * 0.15, t * 0.1) + vec2(3.1, 7.4)),
+    fbm(uv * 1.5 + q + vec2(t * 0.12, t * 0.18) + vec2(5.7, 1.3))
   );
 
-  float f = fbm(uv * 2.0 + r * 1.5);
+  float f = fbm(uv * 1.8 + r * 0.8);
 
-  // Color palette: deep purple, magenta, cyan
-  vec3 purple = vec3(0.298, 0.114, 0.584);   // #4C1D95
-  vec3 magenta = vec3(0.745, 0.094, 0.365);  // #BE185D
-  vec3 cyan = vec3(0.055, 0.455, 0.565);     // #0E7490
-  vec3 darkBg = vec3(0.039, 0.039, 0.059);   // #0A0A0F
+  // ---- Google-style restrained cool palette ----
+  // Base: deep blue-black (#080A12)
+  vec3 bg = vec3(0.031, 0.039, 0.071);
 
-  // Mix colors based on noise
-  vec3 color = mix(purple, magenta, clamp(f * 2.0 + 0.5, 0.0, 1.0));
-  color = mix(color, cyan, clamp(q.x * 2.0 + 0.3, 0.0, 1.0));
-  color = mix(color, darkBg, 0.92); // Very low opacity overlay
+  // Cool indigo cloud core (#1a1f4b at very low intensity)
+  vec3 indigo = vec3(0.102, 0.122, 0.294);
+
+  // Steel cyan drift (#0d1f2d)
+  vec3 steel = vec3(0.051, 0.122, 0.176);
+
+  // Ice highlight — barely visible, only at peaks (#c8e0f0)
+  vec3 ice = vec3(0.784, 0.878, 0.941);
+
+  // Build color: start from bg, let noise push it toward indigo/steel/ice
+  // Most of the canvas stays near bg; only high-noise areas glow subtly.
+  vec3 color = bg;
+
+  // Soft indigo layer
+  float indigoMask = smoothstep(0.35, 0.65, f);
+  color = mix(color, indigo, indigoMask * 0.18);
+
+  // Steel cyan layer, offset by secondary warp
+  float steelMask = smoothstep(0.40, 0.70, r.x * 0.5 + 0.5);
+  color = mix(color, steel, steelMask * 0.12);
+
+  // Ice highlight — only the very brightest peaks
+  float iceMask = smoothstep(0.58, 0.82, f);
+  color = mix(color, ice, iceMask * 0.06);
+
+  // Vignette to keep edges dark and focus attention center
+  vec2 center = uv - 0.5;
+  float vignette = 1.0 - dot(center, center) * 0.6;
+  color *= clamp(vignette, 0.0, 1.0);
 
   gl_FragColor = vec4(color, 1.0);
 }
