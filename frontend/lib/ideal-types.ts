@@ -53,11 +53,17 @@ export interface GapReport {
   expressionTips: ExpressionTip[];
 }
 
+export interface TimingInfo {
+  totalSeconds: number;
+  steps: Record<string, number>;
+}
+
 export interface GenerateResponse {
   session_id: string;
   status: 'processing' | 'completed' | 'failed';
   progress: string;
   ideal_resume?: IdealResume;
   gap_report?: GapReport;
+  timing?: TimingInfo;
   error?: string;
 }

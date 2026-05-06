@@ -1,6 +1,12 @@
 'use client';
 
-import type { IdealResume, GapReport } from '@/lib/ideal-types';
+import type { IdealResume, GapReport, TimingInfo } from '@/lib/ideal-types';
+
+const STEP_LABELS: Record<string, string> = {
+  job_profile: '分析岗位需求',
+  generating_resume: '生成理想简历',
+  analyzing_gaps: '分析差距',
+};
 
 function downloadMarkdown(content: string, filename: string) {
   const blob = new Blob([content], { type: 'text/markdown' });
@@ -64,11 +70,39 @@ function buildGapReportMarkdown(report: GapReport): string {
 interface Props {
   idealResume: IdealResume;
   gapReport: GapReport;
+  timing?: TimingInfo | null;
 }
 
-export default function IdealResultView({ idealResume, gapReport }: Props) {
+function formatSeconds(s: number): string {
+  if (s >= 60) {
+    const m = Math.floor(s / 60);
+    const sec = Math.round(s % 60);
+    return sec > 0 ? `${m}分${sec}秒` : `${m}分`;
+  }
+  return `${Math.round(s)}秒`;
+}
+
+export default function IdealResultView({ idealResume, gapReport, timing }: Props) {
   return (
     <div className="space-y-10">
+      {timing && (
+        <section>
+          <div className="p-4 rounded-lg border border-gray-200 bg-gray-50">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-sm font-medium text-gray-700">生成耗时</span>
+              <span className="text-lg font-bold text-gray-900">{formatSeconds(timing.totalSeconds)}</span>
+            </div>
+            <div className="flex gap-4 text-xs text-gray-500">
+              {Object.entries(timing.steps).map(([step, sec]) => (
+                <span key={step}>
+                  {STEP_LABELS[step] || step}：{formatSeconds(sec)}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold text-gray-900">理想版简历</h2>

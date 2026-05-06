@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "date": "2026-05-03",
+    "round": 3,
+    "samples": ["A2", "B2", "A6"],
+    "judges": ["judge_1", "judge_2", "judge_3", "judge_4", "judge_5"]
+  },
+  "label_mapping": {
+    "A2": {"Version 1": "chatgpt", "Version 2": "jobs"},
+    "B2": {"Version 1": "jobs", "Version 2": "chatgpt"},
+    "A6": {"Version 1": "chatgpt", "Version 2": "jobs"}
+  },
+  "scores": [
+    {"judge": "judge_1", "sample": "A2", "version": "Version 1", "system": "chatgpt", "job_customization": 21, "authenticity": 29, "structure": 14, "expression": 12, "modification_cost": 12, "total": 88, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_1", "sample": "A2", "version": "Version 2", "system": "jobs", "job_customization": 23, "authenticity": 29, "structure": 14, "expression": 14, "modification_cost": 14, "total": 94, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_1", "sample": "B2", "version": "Version 1", "system": "jobs", "job_customization": 23, "authenticity": 29, "structure": 15, "expression": 14, "modification_cost": 14, "total": 95, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_1", "sample": "B2", "version": "Version 2", "system": "chatgpt", "job_customization": 22, "authenticity": 28, "structure": 13, "expression": 12, "modification_cost": 12, "total": 87, "fabrication_detected": "Unclear", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_1", "sample": "A6", "version": "Version 1", "system": "chatgpt", "job_customization": 19, "authenticity": 30, "structure": 14, "expression": 11, "modification_cost": 10, "total": 84, "fabrication_detected": "No", "direct_submit_or_minor_edits": "No"},
+    {"judge": "judge_1", "sample": "A6", "version": "Version 2", "system": "jobs", "job_customization": 22, "authenticity": 29, "structure": 14, "expression": 14, "modification_cost": 13, "total": 92, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_2", "sample": "A2", "version": "Version 1", "system": "chatgpt", "job_customization": 20, "authenticity": 28, "structure": 14, "expression": 12, "modification_cost": 10, "total": 84, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_2", "sample": "A2", "version": "Version 2", "system": "jobs", "job_customization": 23, "authenticity": 29, "structure": 13, "expression": 14, "modification_cost": 13, "total": 92, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_2", "sample": "B2", "version": "Version 1", "system": "jobs", "job_customization": 24, "authenticity": 29, "structure": 14, "expression": 14, "modification_cost": 13, "total": 94, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_2", "sample": "B2", "version": "Version 2", "system": "chatgpt", "job_customization": 23, "authenticity": 29, "structure": 13, "expression": 12, "modification_cost": 11, "total": 88, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_2", "sample": "A6", "version": "Version 1", "system": "chatgpt", "job_customization": 19, "authenticity": 29, "structure": 14, "expression": 12, "modification_cost": 9, "total": 83, "fabrication_detected": "No", "direct_submit_or_minor_edits": "No"},
+    {"judge": "judge_2", "sample": "A6", "version": "Version 2", "system": "jobs", "job_customization": 22, "authenticity": 28, "structure": 13, "expression": 14, "modification_cost": 12, "total": 89, "fabrication_detected": "Unclear", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_3", "sample": "A2", "version": "Version 1", "system": "chatgpt", "job_customization": 21, "authenticity": 28, "structure": 13, "expression": 12, "modification_cost": 12, "total": 86, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_3", "sample": "A2", "version": "Version 2", "system": "jobs", "job_customization": 23, "authenticity": 29, "structure": 14, "expression": 14, "modification_cost": 14, "total": 94, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_3", "sample": "B2", "version": "Version 1", "system": "jobs", "job_customization": 24, "authenticity": 29, "structure": 14, "expression": 14, "modification_cost": 14, "total": 95, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_3", "sample": "B2", "version": "Version 2", "system": "chatgpt", "job_customization": 22, "authenticity": 28, "structure": 13, "expression": 12, "modification_cost": 12, "total": 87, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_3", "sample": "A6", "version": "Version 1", "system": "chatgpt", "job_customization": 19, "authenticity": 29, "structure": 13, "expression": 11, "modification_cost": 11, "total": 83, "fabrication_detected": "No", "direct_submit_or_minor_edits": "No"},
+    {"judge": "judge_3", "sample": "A6", "version": "Version 2", "system": "jobs", "job_customization": 22, "authenticity": 29, "structure": 14, "expression": 13, "modification_cost": 13, "total": 91, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_4", "sample": "A2", "version": "Version 1", "system": "chatgpt", "job_customization": 22, "authenticity": 28, "structure": 14, "expression": 13, "modification_cost": 12, "total": 89, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_4", "sample": "A2", "version": "Version 2", "system": "jobs", "job_customization": 24, "authenticity": 29, "structure": 14, "expression": 14, "modification_cost": 14, "total": 95, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_4", "sample": "B2", "version": "Version 1", "system": "jobs", "job_customization": 23, "authenticity": 29, "structure": 14, "expression": 14, "modification_cost": 14, "total": 94, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_4", "sample": "B2", "version": "Version 2", "system": "chatgpt", "job_customization": 22, "authenticity": 28, "structure": 13, "expression": 12, "modification_cost": 13, "total": 88, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_4", "sample": "A6", "version": "Version 1", "system": "chatgpt", "job_customization": 20, "authenticity": 29, "structure": 14, "expression": 12, "modification_cost": 10, "total": 85, "fabrication_detected": "No", "direct_submit_or_minor_edits": "No"},
+    {"judge": "judge_4", "sample": "A6", "version": "Version 2", "system": "jobs", "job_customization": 22, "authenticity": 28, "structure": 13, "expression": 14, "modification_cost": 13, "total": 90, "fabrication_detected": "Unclear", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_5", "sample": "A2", "version": "Version 1", "system": "chatgpt", "job_customization": 21, "authenticity": 29, "structure": 14, "expression": 12, "modification_cost": 12, "total": 88, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_5", "sample": "A2", "version": "Version 2", "system": "jobs", "job_customization": 23, "authenticity": 29, "structure": 14, "expression": 14, "modification_cost": 14, "total": 94, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_5", "sample": "B2", "version": "Version 1", "system": "jobs", "job_customization": 23, "authenticity": 29, "structure": 14, "expression": 14, "modification_cost": 14, "total": 94, "fabrication_detected": "No", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_5", "sample": "B2", "version": "Version 2", "system": "chatgpt", "job_customization": 22, "authenticity": 28, "structure": 13, "expression": 12, "modification_cost": 12, "total": 87, "fabrication_detected": "Unclear", "direct_submit_or_minor_edits": "Yes"},
+    {"judge": "judge_5", "sample": "A6", "version": "Version 1", "system": "chatgpt", "job_customization": 21, "authenticity": 30, "structure": 13, "expression": 12, "modification_cost": 11, "total": 87, "fabrication_detected": "No", "direct_submit_or_minor_edits": "No"},
+    {"judge": "judge_5", "sample": "A6", "version": "Version 2", "system": "jobs", "job_customization": 23, "authenticity": 28, "structure": 14, "expression": 14, "modification_cost": 14, "total": 93, "fabrication_detected": "Unclear", "direct_submit_or_minor_edits": "Yes"}
+  ],
+  "averages": {
+    "by_system": {
+      "chatgpt": {
+        "job_customization": 21.13,
+        "authenticity": 28.67,
+        "structure": 13.53,
+        "expression": 12.07,
+        "modification_cost": 11.40,
+        "total": 86.27,
+        "direct_submit_yes": 10
+      },
+      "jobs": {
+        "job_customization": 22.87,
+        "authenticity": 28.80,
+        "structure": 13.87,
+        "expression": 13.93,
+        "modification_cost": 13.53,
+        "total": 93.07,
+        "direct_submit_yes": 15
+      }
+    },
+    "by_sample_and_system": {
+      "A2": {
+        "chatgpt": {"total": 87.00, "authenticity": 28.40, "direct_submit_yes": 5},
+        "jobs": {"total": 93.80, "authenticity": 29.00, "direct_submit_yes": 5}
+      },
+      "B2": {
+        "chatgpt": {"total": 87.40, "authenticity": 28.20, "direct_submit_yes": 5},
+        "jobs": {"total": 94.40, "authenticity": 29.00, "direct_submit_yes": 5}
+      },
+      "A6": {
+        "chatgpt": {"total": 84.40, "authenticity": 29.40, "direct_submit_yes": 0},
+        "jobs": {"total": 91.00, "authenticity": 28.40, "direct_submit_yes": 5}
+      }
+    }
+  },
+  "success_criteria": {
+    "a2_jobs_win": true,
+    "b2_jobs_win_by_1": true,
+    "a6_jobs_win_by_3": true,
+    "jobs_overall_win": true,
+    "jobs_direct_submit_gte_13": true,
+    "jobs_authenticity_gte_29": false
+  }
+}

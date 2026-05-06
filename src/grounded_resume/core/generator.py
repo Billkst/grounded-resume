@@ -6,7 +6,12 @@ import hashlib
 import json
 import logging
 
-from grounded_resume.core.ideal_models import JobProfile
+from grounded_resume.core.ideal_models import (
+    GapReport,
+    IdealResume,
+    JobProfile,
+    ResumeSection,
+)
 from grounded_resume.core.llm_helpers import call_llm_json
 from grounded_resume.core.llm_service import LLMService
 from grounded_resume.core.prompt_loader import PromptTemplate, model_family
@@ -81,13 +86,16 @@ def generate_ideal_resume(
         max_tokens=prompt.max_tokens,
     )
 
-    # Build markdown from sections
-    sections = data.get("sections", [])
-    md = _sections_to_markdown(sections)
-    data["markdown"] = md
-
+    # Build markdown from sections, validate through model for camelCase output
+    raw_sections = data.get("sections", [])
+    md = _sections_to_markdown(raw_sections)
+    sections = [ResumeSection.model_validate(s) for s in raw_sections]
+    ideal = IdealResume(
+        markdown=md,
+        sections=sections,
+    )
     logger.info("Ideal resume generated: %d sections", len(sections))
-    return data
+    return ideal.model_dump(mode="json", by_alias=True)
 
 
 def analyze_gaps(
@@ -122,15 +130,16 @@ def analyze_gaps(
     )
 
     data = _normalize_gap_report(data)
+    report = GapReport.model_validate(data)
 
     logger.info(
         "Gap analysis: score=%d, blockers=%d, critical=%d, tips=%d",
-        data.get("overall_score", 0),
-        len(data.get("blockers", [])),
-        len(data.get("critical_gaps", [])),
-        len(data.get("expression_tips", [])),
+        report.overall_score,
+        len(report.blockers),
+        len(report.critical_gaps),
+        len(report.expression_tips),
     )
-    return data
+    return report.model_dump(mode="json", by_alias=True)
 
 
 def _experience_label(level: str) -> str:
@@ -190,7 +199,9 @@ def _normalize_gap_report(data: dict) -> dict:
             normalized_tips.append(tip)
     data["expression_tips"] = normalized_tips
 
-    # Ensure required fields exist
+    # Ensure required fields exist and strip extras
+    allowed = {"overall_score", "summary", "blockers", "critical_gaps", "expression_tips"}
+    data = {k: v for k, v in data.items() if k in allowed}
     data.setdefault("overall_score", 50)
     data.setdefault("summary", "")
     data.setdefault("blockers", [])
@@ -199,11 +210,12 @@ def _normalize_gap_report(data: dict) -> dict:
 
 
 def _normalize_job_profile(data: dict) -> dict:
-    """Normalize LLM output to match JobProfile model fields."""
-    data.pop("job_title", None)
-    data.pop("role_name", None)
-    data.pop("title", None)
-    return data
+    """Strip extra fields LLM may return, keep only JobProfile model fields."""
+    allowed = {
+        "hard_requirements", "core_capabilities", "bonus_points",
+        "ats_keywords_high", "ats_keywords_medium", "ideal_candidate_profile",
+    }
+    return {k: v for k, v in data.items() if k in allowed}
 
 
 def _sections_to_markdown(sections: list[dict]) -> str:

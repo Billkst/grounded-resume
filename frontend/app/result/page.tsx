@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { pollGeneration } from '@/lib/ideal-api';
-import type { IdealResume, GapReport, GenerateResponse } from '@/lib/ideal-types';
+import type { IdealResume, GapReport, GenerateResponse, TimingInfo } from '@/lib/ideal-types';
 import IdealResultView from '@/components/ideal-result-view';
 
 const PROGRESS_LABELS: Record<string, string> = {
@@ -14,6 +14,12 @@ const PROGRESS_LABELS: Record<string, string> = {
 };
 
 const STEPS = ['job_profile', 'generating_resume', 'analyzing_gaps', 'done'];
+
+function formatElapsed(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return m > 0 ? `${m}分${s}秒` : `${s}秒`;
+}
 
 export default function ResultPage() {
   return (
@@ -40,8 +46,17 @@ function ResultContent() {
   const [progress, setProgress] = useState('');
   const [idealResume, setIdealResume] = useState<IdealResume | null>(null);
   const [gapReport, setGapReport] = useState<GapReport | null>(null);
+  const [timing, setTiming] = useState<TimingInfo | null>(null);
+  const [elapsed, setElapsed] = useState(0);
   const [error, setError] = useState('');
   const stoppedRef = useRef(false);
+
+  // Elapsed time ticker
+  useEffect(() => {
+    if (status !== 'processing') return;
+    const ticker = setInterval(() => setElapsed((n) => n + 1), 1000);
+    return () => clearInterval(ticker);
+  }, [status]);
 
   useEffect(() => {
     if (!sessionId) {
@@ -49,20 +64,31 @@ function ResultContent() {
       return;
     }
 
+    stoppedRef.current = false;
+
     const stop = pollGeneration(
       sessionId,
       (resp: GenerateResponse) => {
         if (stoppedRef.current) return;
+        const s = (resp.status || '').toLowerCase();
+        console.log('[poll] status:', s, 'progress:', resp.progress, 'hasResult:', !!resp.ideal_resume, 'hasGap:', !!resp.gap_report);
         setStatus(resp.status);
         setProgress(resp.progress);
-        if (resp.status === 'completed') {
+        if (['completed', 'done', 'success'].includes(s)) {
           if (resp.ideal_resume) setIdealResume(resp.ideal_resume);
           if (resp.gap_report) setGapReport(resp.gap_report);
-        } else if (resp.status === 'failed') {
+          if (resp.timing) setTiming(resp.timing);
+        } else if (['failed', 'error'].includes(s)) {
           setError(resp.error || '生成失败');
+        } else {
+          // still processing — update elapsed time ticker
         }
       },
-      (err) => setError(err.message),
+      (err) => {
+        console.error('[poll] network error:', err.message);
+        setStatus('failed');
+        setError(`网络错误: ${err.message}`);
+      },
     );
 
     return () => {
@@ -76,12 +102,20 @@ function ResultContent() {
       <div className="max-w-3xl mx-auto px-4 py-12">
         {status === 'processing' && (
           <div className="text-center py-20">
+            {error && (
+              <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 inline-block">
+                <p className="text-sm text-red-700">{error}</p>
+              </div>
+            )}
             <div className="inline-flex items-center gap-2 mb-6">
               <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
               <span className="text-lg text-gray-700">
                 {PROGRESS_LABELS[progress] || '处理中...'}
               </span>
             </div>
+            <p className="text-sm text-gray-400 mb-8">
+              已耗时 {formatElapsed(elapsed)}
+            </p>
             <div className="flex justify-center gap-8 mt-8">
               {STEPS.map((step) => (
                 <div key={step} className="flex items-center gap-2">
@@ -112,7 +146,7 @@ function ResultContent() {
         )}
 
         {status === 'completed' && idealResume && gapReport && (
-          <IdealResultView idealResume={idealResume} gapReport={gapReport} />
+          <IdealResultView idealResume={idealResume} gapReport={gapReport} timing={timing} />
         )}
       </div>
     </main>

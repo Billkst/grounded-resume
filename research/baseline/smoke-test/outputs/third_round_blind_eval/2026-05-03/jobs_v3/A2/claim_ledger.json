@@ -1,0 +1,146 @@
+{
+  "sample": "A2",
+  "material_density": "rich",
+  "version": "jobs_v3",
+  "selected_candidate": "Candidate 1: AI 产品策略 / 开发者服务适配",
+  "claims": [
+    {
+      "bullet_id": "A2-B01",
+      "section": "求职方向",
+      "bullet": "应聘字节跳动开发者服务 AI 产品实习生，关注豆包编程、Aime、AI Agent 平台与开发者工具方向，期望在需求调研、体验分析和产品文档支持中发挥计算机与 AI 工具使用背景。",
+      "support_type": "reasonable_inference",
+      "evidence_quote": "岗位名称：AI产品实习生-开发者服务；负责豆包编程以及Agent产品Aime的需求调研、分析和规划；用户基础信息：求职目标：申请 AI 产品相关实习岗；工具与方法：会 Python；用过 ChatGPT、Claude、Cursor、Kimi。",
+      "reasonable_inference": true,
+      "numbers": []
+    },
+    {
+      "bullet_id": "A2-B02",
+      "section": "教育背景",
+      "bullet": "电子科技大学计算机相关专业硕士在读，预计 2027 年毕业；具备计算机相关学习背景，求职目标为 AI 产品相关实习岗。",
+      "support_type": "material_supported",
+      "evidence_quote": "学历：硕士在读；学校：电子科技大学；专业：计算机相关；毕业时间：2027 年；求职目标：申请 AI 产品相关实习岗。",
+      "reasonable_inference": false,
+      "numbers": [
+        {
+          "value": "2027",
+          "source_quote": "毕业时间：2027 年"
+        }
+      ]
+    },
+    {
+      "bullet_id": "A2-B03",
+      "section": "AI 学习助手课程项目",
+      "bullet": "基于公开文档和课程资料参与问答助手项目，整理知识库内容，支持后续问答内容组织与检索语料准备。",
+      "support_type": "material_supported",
+      "evidence_quote": "基于公开文档和课程资料做过一个问答助手；负责整理知识库内容。",
+      "reasonable_inference": false,
+      "numbers": []
+    },
+    {
+      "bullet_id": "A2-B04",
+      "section": "AI 学习助手课程项目",
+      "bullet": "设计问题分类方式，将用户可能提出的问题进行归类，为需求理解、问答路径梳理和体验分析提供结构化输入。",
+      "support_type": "material_supported",
+      "evidence_quote": "自己设计过问题分类。",
+      "reasonable_inference": false,
+      "numbers": []
+    },
+    {
+      "bullet_id": "A2-B05",
+      "section": "AI 学习助手课程项目",
+      "bullet": "对比不同 prompt 的回答差异，观察回答准确性、完整性和表达方式变化，沉淀可用于 AI 产品体验评估的提示词对比方法。",
+      "support_type": "material_supported",
+      "evidence_quote": "对比过不同 prompt 的回答差异。",
+      "reasonable_inference": false,
+      "numbers": []
+    },
+    {
+      "bullet_id": "A2-B06",
+      "section": "AI 学习助手课程项目",
+      "bullet": "整理答非所问、引用不准、回答空泛等 bad case，并从问题类型与 prompt 角度分析可能原因，贴合 AI Agent/问答产品的质量改进场景。",
+      "support_type": "material_supported",
+      "evidence_quote": "整理过一些 bad case，例如答非所问、引用不准、回答太空泛；职位要求：深度了解AI Agent技术原理，了解行业前沿动态。",
+      "reasonable_inference": false,
+      "numbers": []
+    },
+    {
+      "bullet_id": "A2-B07",
+      "section": "AI 学习助手课程项目",
+      "bullet": "通过该项目形成对知识库质量、问题分类、prompt 设计和回答体验关系的初步理解，可迁移到 AI Coding/Agent 产品的需求分析与体验把控。",
+      "support_type": "reasonable_inference",
+      "evidence_quote": "负责整理知识库内容；自己设计过问题分类；对比过不同 prompt 的回答差异；整理过一些 bad case；职位描述：负责豆包编程以及Agent产品Aime的需求调研、分析和规划，推动项目高效运转，严格把控产品体验。",
+      "reasonable_inference": true,
+      "numbers": []
+    },
+    {
+      "bullet_id": "A2-B08",
+      "section": "岗位信息整理小工具",
+      "bullet": "收集多家公司岗位 JD，整理关键词与能力要求，支持对 AI 产品、技术产品岗位需求的结构化理解。",
+      "support_type": "material_supported",
+      "evidence_quote": "收集过多家公司岗位 JD；做过关键词整理和要求归类。",
+      "reasonable_inference": false,
+      "numbers": []
+    },
+    {
+      "bullet_id": "A2-B09",
+      "section": "岗位信息整理小工具",
+      "bullet": "对不同岗位要求进行归类，尝试总结共性能力模型，输出简单分析文档，用于辅助简历匹配和求职方向判断。",
+      "support_type": "material_supported",
+      "evidence_quote": "做过关键词整理和要求归类；尝试总结不同岗位共同能力要求；写过简单分析文档。",
+      "reasonable_inference": false,
+      "numbers": []
+    },
+    {
+      "bullet_id": "A2-B10",
+      "section": "岗位信息整理小工具",
+      "bullet": "将岗位信息拆解为关键词、要求类别和能力维度，训练了需求调研、信息结构化和产品分析文档输出能力，可迁移到开发者服务场景中的用户需求整理。",
+      "support_type": "reasonable_inference",
+      "evidence_quote": "收集过多家公司岗位 JD；做过关键词整理和要求归类；写过简单分析文档；职位描述：负责豆包编程以及Agent产品Aime的需求调研、分析和规划。",
+      "reasonable_inference": true,
+      "numbers": []
+    },
+    {
+      "bullet_id": "A2-B11",
+      "section": "技能 / 工具",
+      "bullet": "编程与技术理解：会使用 Python，具备计算机相关专业基础，能够与 AI 工具、知识库问答和 prompt 评估场景结合使用。",
+      "support_type": "material_supported",
+      "evidence_quote": "专业：计算机相关；会 Python；基于公开文档和课程资料做过一个问答助手；对比过不同 prompt 的回答差异。",
+      "reasonable_inference": false,
+      "numbers": []
+    },
+    {
+      "bullet_id": "A2-B12",
+      "section": "技能 / 工具",
+      "bullet": "AI 工具体验：使用过 ChatGPT、Claude、Cursor、Kimi，对 AI 辅助学习、写作和 Coding 工具有实际体验，适配 AI Coding 产品体验观察。",
+      "support_type": "material_supported",
+      "evidence_quote": "用过 ChatGPT、Claude、Cursor、Kimi；热爱创新，有AI Coding类产品或者通用Agent类产品经验优先。",
+      "reasonable_inference": false,
+      "numbers": []
+    },
+    {
+      "bullet_id": "A2-B13",
+      "section": "技能 / 工具",
+      "bullet": "产品工具与表达：会使用 Figma，做过简单原型；能够结合关键词整理、问题分类和 bad case 记录输出轻量分析文档。",
+      "support_type": "material_supported",
+      "evidence_quote": "会 Figma，做过简单原型；做过关键词整理和要求归类；自己设计过问题分类；整理过一些 bad case；写过简单分析文档。",
+      "reasonable_inference": false,
+      "numbers": []
+    },
+    {
+      "bullet_id": "A2-B14",
+      "section": "补充经历",
+      "bullet": "暂无正式实习经历，当前以课程项目、岗位信息整理和 AI 工具实践作为 AI 产品实习申请的主要素材基础。",
+      "support_type": "material_supported",
+      "evidence_quote": "无正式实习经历；AI 学习助手课程项目；岗位信息整理小工具；用过 ChatGPT、Claude、Cursor、Kimi。",
+      "reasonable_inference": false,
+      "numbers": []
+    }
+  ],
+  "blocked_claims": [
+    "正式实习经历",
+    "主导或负责项目",
+    "上线产品或真实用户数据",
+    "深度掌握 AI Agent 技术原理",
+    "跨多职能团队合作交付"
+  ]
+}

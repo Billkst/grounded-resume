@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import time
 from typing import cast
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException
@@ -86,6 +87,7 @@ def get_generation(session_id: str) -> dict:
         result = cast(dict, session["result"])
         response["ideal_resume"] = result.get("ideal_resume")
         response["gap_report"] = result.get("gap_report")
+        response["timing"] = session.get("timing")
     elif session["status"] == "failed":
         response["error"] = session.get("error", "Unknown error")
 
@@ -98,10 +100,14 @@ def health() -> dict:
 
 
 def _run_generation(session_id: str, request: GenerateRequest) -> None:
+    overall_start = time.time()
+    step_times: dict[str, float] = {}
+
     try:
         llm = _build_llm_service(request.llm_config)
 
         # Step 1: Job profile
+        t0 = time.time()
         session_store.update_progress(session_id, "job_profile")
         if request.job_profile_id and request.job_profile_id in job_profile_cache:
             job_profile = JobProfile.model_validate(job_profile_cache[request.job_profile_id])
@@ -110,14 +116,18 @@ def _run_generation(session_id: str, request: GenerateRequest) -> None:
             if request.jd_text:
                 jd_hash = hash_jd(request.jd_text)
                 job_profile_cache[jd_hash] = job_profile.model_dump(mode="json", by_alias=True)
+        step_times["job_profile"] = round(time.time() - t0, 2)
 
         # Step 2: Generate ideal resume
+        t0 = time.time()
         session_store.update_progress(session_id, "generating_resume")
         ideal_resume_data = generate_ideal_resume(
             llm, job_profile, request.target_role, request.experience_level
         )
+        step_times["generating_resume"] = round(time.time() - t0, 2)
 
         # Step 3: Analyze gaps
+        t0 = time.time()
         session_store.update_progress(session_id, "analyzing_gaps")
         gap_report_data = analyze_gaps(
             llm,
@@ -126,13 +136,20 @@ def _run_generation(session_id: str, request: GenerateRequest) -> None:
             ideal_resume_data.get("markdown", ""),
             request.experience_level,
         )
+        step_times["analyzing_gaps"] = round(time.time() - t0, 2)
+
+        total_seconds = round(time.time() - overall_start, 2)
+        timing = {
+            "totalSeconds": total_seconds,
+            "steps": step_times,
+        }
 
         result = {
             "ideal_resume": ideal_resume_data,
             "gap_report": gap_report_data,
         }
-        session_store.complete(session_id, result)
-        logger.info("Generation completed: session=%s", session_id)
+        session_store.complete(session_id, result, timing)
+        logger.info("Generation completed: session=%s total=%.1fs", session_id, total_seconds)
 
     except Exception as exc:
         logger.error("Generation failed: session=%s error=%s", session_id, exc, exc_info=True)
