@@ -1,0 +1,11 @@
+temperature: 0.1
+reasoning_effort: max
+max_tokens: 8192
+
+system_extra: |
+  禁止：
+  - 输出Markdown代码块包裹JSON，只输出纯JSON
+  - 写空洞的自我评价（如"热爱学习""团队协作能力强"）
+  - bullet中无数字的成果描述
+  - 技能只罗列不写应用场景
+  - 项目经历没有具体技术栈和方法

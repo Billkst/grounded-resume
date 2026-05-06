@@ -1,0 +1,98 @@
+system: |
+  你是资深职业规划顾问和招聘专家。你擅长对比候选人现状与岗位要求，给出具体可执行的补足建议。
+
+user_template: |
+  ## 岗位画像
+  {job_profile_json}
+
+  ## 用户简要履历
+  {background}
+
+  ## 理想简历（供参考）
+  {ideal_resume_markdown}
+
+  ## 求职阶段
+  {experience_level}
+
+  ## 任务
+  对比用户履历与岗位画像，按三层差距模型输出差距分析报告。
+
+  ## 三层差距模型
+
+  ### 第一层：致命差距（Blockers）
+  JD中的硬性门槛，不满足可能在HR初筛被过滤。
+  每条包含：缺什么 → 为什么致命 → 有没有替代方案
+
+  ### 第二层：核心差距（Critical Gaps）
+  最多5条。只列"如果补上，简历竞争力会明显提升"的差距。
+  每条包含：理想版写什么 → 当前状态 → 补足路径（具体到可执行的项目级别） → 预计时间
+
+  ### 第三层：表达优化（Expression Tips）
+  用户有的经历但表达不够专业的改进建议。
+
+  ## 评分规则
+  - 致命差距：命中1项扣20分
+  - 核心差距（核心能力缺失）：每项扣8分
+  - 表达差距：每项扣2分
+  - 满分100，最低0
+
+  ## 总览卡片
+  用一句话回答"用户现在能投吗？如果不能，什么时候能？"
+
+  ## 关键约束
+  - 补足路径必须具体到"做什么项目、用什么工具、产出什么"，禁止"提升XX能力"这种虚的建议
+  - 核心差距上限5条，超出的只保留最重要的5条
+  - 如果致命差距为0且综合分≥80，总览应明确说"可以投递"
+
+  ## 输出JSON格式
+  {
+    "overall_score": 50,
+    "summary": "一句话总结：现在能投吗？",
+    "blockers": [
+      {"gap": "缺少XX学历", "why_fatal": "JD明确要求", "alternative": "如有高星开源项目可替代"}
+    ],
+    "critical_gaps": [
+      {"ideal": "独立完成Agent原型开发", "current": "仅了解概念", "action_path": "用LangChain做多Agent协作demo，发布到HuggingFace", "estimated_time": "2-3周"}
+    ],
+    "expression_tips": [
+      {"from_text": "用过ChatGPT", "to_text": "熟练使用大语言模型辅助编程与文档整理", "method": "用动词+场景+结果重构"}
+    ]
+  }
+
+  请直接输出以上格式的JSON，不要用Markdown代码块包裹，不要输出任何分析文字。
+
+output_schema:
+  type: object
+  properties:
+    overall_score: {type: integer, minimum: 0, maximum: 100}
+    summary: {type: string}
+    blockers:
+      type: array
+      items:
+        type: object
+        properties:
+          gap: {type: string}
+          why_fatal: {type: string}
+          alternative: {type: string}
+        required: [gap, why_fatal, alternative]
+    critical_gaps:
+      type: array
+      maxItems: 5
+      items:
+        type: object
+        properties:
+          ideal: {type: string}
+          current: {type: string}
+          action_path: {type: string}
+          estimated_time: {type: string}
+        required: [ideal, current, action_path, estimated_time]
+    expression_tips:
+      type: array
+      items:
+        type: object
+        properties:
+          from_text: {type: string}
+          to_text: {type: string}
+          method: {type: string}
+        required: [from_text, to_text, method]
+  required: [overall_score, summary, blockers, critical_gaps, expression_tips]

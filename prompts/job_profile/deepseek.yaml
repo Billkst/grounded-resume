@@ -1,0 +1,10 @@
+temperature: 0.1
+reasoning_effort: max
+max_tokens: 4096
+
+system_extra: |
+  禁止：
+  - 输出Markdown代码块，只输出纯JSON
+  - 将加分项或"优先考虑"写入hard_requirements
+  - 编造JD中未出现的硬性要求
+  - 遗漏JD中明确写出的硬性要求

@@ -1,1 +1,81 @@
-/tmp/grounded_resume_repo_review/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 虚拟环境
+venv/
+ENV/
+env/
+.venv
+
+# 测试与覆盖率
+.pytest_cache/
+.coverage
+htmlcov/
+coverage/
+.tox/
+.nox/
+
+# 类型检查
+.mypy_cache/
+.basedpyright/
+.dmypy.json
+
+# ruff
+.ruff_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 环境变量
+.env
+.env.*
+!.env.example
+!.env.local.example
+
+# 数据库
+data/*.db
+data/*.sqlite
+*.db
+*.sqlite
+
+# Playwright
+test-results/
+playwright-report/
+playwright-screenshots/
+
+# 日志
+*.log
+
+# git worktrees
+.worktrees/
+
+# 临时文件
+tmp/
+temp/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,71 @@
+system: |
+  你是顶尖简历撰写专家，专攻{target_role}领域。你服务的客户是该领域最优秀的候选人，你产出的简历必须能通过HR初筛和面试官审视。
+
+user_template: |
+  ## 岗位画像
+  {job_profile_json}
+
+  ## 目标岗位
+  {target_role}
+
+  ## 求职阶段
+  {experience_level}
+
+  ## 任务
+  基于岗位画像，生成一份该岗位理论上的完美候选人简历。该简历代表"理想目标画像"，不是真实人物。
+
+  ## 硬性约束
+  1. 自我评价采用黄金三段式（岗位匹配+核心能力+职业目标），80-120字。
+  2. 每条项目经历bullet必须包含至少一个量化数字。
+  3. 禁止纯职责描述，每条bullet结构：动作动词+方法/工具+量化结果。
+  4. 技能section分为硬技能和软技能，每条附带应用场景。
+  5. 必须包含5个section：基本信息、自我评价、技能、项目经历、教育背景。
+  6. 列出2-3个与JD对齐的虚拟项目，每个项目含项目名/角色/时间/2-4条bullets。
+  7. 教育背景必须包含学校/专业/学历/起止时间。
+
+  ## 输出JSON格式
+  {
+    "sections": [
+      {
+        "section_type": "basic_info",
+        "title": "基本信息",
+        "content": "姓名：XXX | 邮箱：xxx@example.com | 电话：138xxxx | 求职意向：{target_role}"
+      },
+      {
+        "section_type": "summary",
+        "title": "自我评价",
+        "content": "[岗位匹配] ... [核心能力] ... [职业目标] ..."
+      },
+      {
+        "section_type": "skills",
+        "title": "技能",
+        "content": "## 硬技能\\n- Python：独立完成...\\n- Prompt Engineering：设计..."
+      },
+      {
+        "section_type": "experience",
+        "title": "项目经历",
+        "content": "## 项目1名称\\n**角色**：xx | **时间**：2025.03-2025.06\\n- 动作+方法+量化结果\\n- ..."
+      },
+      {
+        "section_type": "education",
+        "title": "教育背景",
+        "content": "XX大学 计算机科学与技术 本科 2023.09-2027.06\\n核心课程：机器学习、NLP、数据结构..."
+      }
+    ]
+  }
+
+  请直接输出以上格式的JSON，不要用Markdown代码块包裹，不要输出任何分析文字。
+
+output_schema:
+  type: object
+  properties:
+    sections:
+      type: array
+      items:
+        type: object
+        properties:
+          section_type: {type: string, enum: [basic_info, summary, skills, experience, education]}
+          title: {type: string}
+          content: {type: string}
+        required: [section_type, title, content]
+  required: [sections]

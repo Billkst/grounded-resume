@@ -1,0 +1,53 @@
+system: |
+  你是资深招聘专家和岗位分析师。你擅长从JD中提取硬性门槛、核心能力要求和关键词体系。
+
+user_template: |
+  ## 目标岗位
+  {target_role}
+
+  ## 岗位JD原文
+  {jd_text}
+
+  ## 任务
+  请分析上述JD，输出结构化岗位画像JSON。
+
+  ## 要求
+  - hard_requirements: 只列硬性门槛（学历、专业、必须技能、到岗时间等），不含加分项
+  - core_capabilities: 列出核心能力要求，weight 1-10表示重要程度
+  - ats_keywords_high: 高权重ATS关键词（JD中反复出现或明确列为"必须"的）
+  - ats_keywords_medium: 中等权重关键词
+  - ideal_candidate_profile: 用约200字描述该岗位最理想的候选人画像
+  - 禁止将"加分项/优先考虑"写入hard_requirements
+
+output_schema:
+  type: object
+  properties:
+    hard_requirements:
+      type: array
+      items:
+        type: object
+        properties:
+          requirement: {type: string}
+          category: {type: string, enum: [education, major, skill, availability, other]}
+        required: [requirement, category]
+    core_capabilities:
+      type: array
+      items:
+        type: object
+        properties:
+          name: {type: string}
+          weight: {type: integer, minimum: 1, maximum: 10}
+          description: {type: string}
+        required: [name, weight, description]
+    bonus_points:
+      type: array
+      items: {type: string}
+    ats_keywords_high:
+      type: array
+      items: {type: string}
+    ats_keywords_medium:
+      type: array
+      items: {type: string}
+    ideal_candidate_profile:
+      type: string
+  required: [hard_requirements, core_capabilities, bonus_points, ats_keywords_high, ats_keywords_medium, ideal_candidate_profile]

@@ -1,25 +1,50 @@
 """FastAPI application factory."""
 
-# pyright: reportMissingImports=false
-
 from __future__ import annotations
 
+import logging
+import os
+
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-from grounded_resume.core.workflow.graph import build_workflow_graph
+os.environ.pop("all_proxy", None)
+os.environ.pop("ALL_PROXY", None)
 
-from .dependencies import ApiSessionStore
-from .routes import router
-from grounded_resume.api.websocket import router as websocket_router
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
+
+from grounded_resume.core.config import DEPLOYMENT_MODE
+from grounded_resume.core.llm_service import LLMService
+
+from .ideal_routes import router as ideal_router
 
 
 def create_app() -> FastAPI:
-    app = FastAPI(title="grounded-resume API", version="0.1.0")
-    app.state.workflow_graph = build_workflow_graph()
-    app.state.session_store = ApiSessionStore()
-    app.include_router(router)
-    app.include_router(websocket_router)
+    app = FastAPI(title="grounded-resume API", version="2.0.0")
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+    llm_service = LLMService()
+    app.state.llm_service = llm_service
+    app.include_router(ideal_router)
     return app
 
 
 app = create_app()
+
+
+@app.get("/config")
+def get_config() -> dict[str, object]:
+    return {
+        "deploymentMode": DEPLOYMENT_MODE,
+        "supportedProviders": [
+            "openai", "kimi", "glm", "deepseek",
+            "claude", "qwen", "gemini", "third_party",
+        ],
+    }
