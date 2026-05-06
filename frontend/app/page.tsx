@@ -53,10 +53,21 @@ export default function Home() {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight"
+            className="text-4xl md:text-5xl leading-tight"
             style={{ letterSpacing: '-0.02em' }}
           >
-            发现你的<span className="text-white/50">理想简历</span>
+            <span className="font-light text-white/40">发现你的</span>
+            <span
+              className="font-extrabold"
+              style={{
+                background: 'linear-gradient(135deg, #F5A623 0%, #F9D56E 35%, #FFFFFF 70%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              理想简历
+            </span>
           </motion.h1>
 
           <motion.p

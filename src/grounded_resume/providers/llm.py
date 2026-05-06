@@ -103,7 +103,7 @@ def get_default_presets() -> tuple[ProviderPreset, ...]:
             provider_id="openai",
             display_name="OpenAI",
             base_url="https://api.openai.com/v1",
-            default_models=("gpt-5.5", "gpt-5.5-pro", "gpt-5.4-mini"),
+            default_models=("gpt-5.5", "gpt-5.5-pro", "gpt-5.5-mini"),
             auth_modes=("api_key", "device_code"),
         ),
         ProviderPreset(
@@ -117,7 +117,7 @@ def get_default_presets() -> tuple[ProviderPreset, ...]:
             provider_id="glm",
             display_name="GLM",
             base_url="https://open.bigmodel.cn/api/paas/v4",
-            default_models=("glm-5.1",),
+            default_models=("glm-5.5", "glm-5.1"),
             auth_modes=("api_key",),
         ),
         ProviderPreset(
@@ -131,21 +131,21 @@ def get_default_presets() -> tuple[ProviderPreset, ...]:
             provider_id="claude",
             display_name="Claude",
             base_url="https://api.anthropic.com/v1",
-            default_models=("claude-opus-4-7",),
+            default_models=("claude-opus-4-7", "claude-sonnet-4-6", "claude-haiku-4-5-20251001"),
             auth_modes=("api_key",),
         ),
         ProviderPreset(
             provider_id="qwen",
             display_name="Qwen",
             base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
-            default_models=("qwen3.5-flash-2026-02-23",),
+            default_models=("qwen3.6-max-preview", "qwen3.6-plus", "qwen3.6-flash"),
             auth_modes=("api_key",),
         ),
         ProviderPreset(
             provider_id="gemini",
             display_name="Gemini",
             base_url="https://generativelanguage.googleapis.com/v1beta",
-            default_models=("gemini-3.1-flash-live-preview",),
+            default_models=("gemini-3.1-pro-preview", "gemini-3.1-flash-live-preview"),
             auth_modes=("api_key",),
         ),
         ProviderPreset(
