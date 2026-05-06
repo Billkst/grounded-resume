@@ -5,15 +5,6 @@ from typing import Literal, cast
 
 from pydantic import BaseModel, Field, model_validator
 
-from .safety_rules import (
-    DEGREE_DOWNGRADE_TABLE,
-    REDLINE_PATTERNS,
-    ROLE_LIMITS,
-    VERB_DOWNGRADE_TABLE,
-    detect_unsupported_number,
-    get_downgraded_verb,
-)
-
 DEPLOYMENT_MODE = os.environ.get("DEPLOYMENT_MODE", "local")
 ENABLE_AUTH = os.environ.get("ENABLE_AUTH", "false").lower() == "true"
 
@@ -65,10 +56,4 @@ __all__ = [
     "DEPLOYMENT_MODE",
     "ENABLE_AUTH",
     "LLMConfig",
-    "DEGREE_DOWNGRADE_TABLE",
-    "REDLINE_PATTERNS",
-    "ROLE_LIMITS",
-    "VERB_DOWNGRADE_TABLE",
-    "detect_unsupported_number",
-    "get_downgraded_verb",
 ]

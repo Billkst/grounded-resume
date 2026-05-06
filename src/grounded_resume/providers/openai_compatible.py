@@ -87,10 +87,15 @@ class OpenAICompatibleAdapter:
             error_text = response.text
             # Some providers don't support json_object response_format; retry without it
             if use_json_mode and ("response_format" in error_text or "json_object" in error_text):
-                logger.warning("%s rejected json_object mode, retrying without response_format", self.provider_id)
+                logger.warning(
+                    "%s rejected json_object mode, retrying without response_format",
+                    self.provider_id,
+                )
                 payload.pop("response_format", None)
                 try:
-                    with httpx.Client(timeout=request.timeout_s, transport=self._transport) as client:
+                    with httpx.Client(
+                        timeout=request.timeout_s, transport=self._transport
+                    ) as client:
                         response = client.post(
                             f"{self.base_url}/chat/completions",
                             headers={

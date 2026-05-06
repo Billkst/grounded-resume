@@ -5,8 +5,7 @@ from __future__ import annotations
 import json
 import logging
 import re
-
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from grounded_resume.core.llm_service import LLMService
@@ -40,7 +39,7 @@ def call_llm_json(
     *,
     temperature: float = 0.1,
     max_tokens: int = 4096,
-) -> dict:
+) -> dict[str, Any]:
     """Call LLM and parse JSON response."""
     from grounded_resume.providers.llm import LLMRequest, Message
 

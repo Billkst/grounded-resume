@@ -16,17 +16,17 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(name)s: %(message)s",
 )
 
-from grounded_resume.core.config import DEPLOYMENT_MODE
-from grounded_resume.core.llm_service import LLMService
+from grounded_resume.core.config import DEPLOYMENT_MODE  # noqa: E402
+from grounded_resume.core.llm_service import LLMService  # noqa: E402
 
-from .ideal_routes import router as ideal_router
+from .ideal_routes import router as ideal_router  # noqa: E402
 
 
 def create_app() -> FastAPI:
     app = FastAPI(title="grounded-resume API", version="2.0.0")
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+        allow_origins=["*"],
         allow_methods=["*"],
         allow_headers=["*"],
     )

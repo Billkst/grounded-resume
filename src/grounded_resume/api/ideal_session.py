@@ -22,6 +22,8 @@ class IdealSessionStore:
                 "result": None,
                 "error": None,
                 "created_at": time.time(),
+                "started_at": time.time(),
+                "timing": None,
             }
         return session_id
 
@@ -30,12 +32,13 @@ class IdealSessionStore:
             if session_id in self._sessions:
                 self._sessions[session_id]["progress"] = progress
 
-    def complete(self, session_id: str, result: dict[str, Any]) -> None:
+    def complete(self, session_id: str, result: dict[str, Any], timing: dict[str, Any]) -> None:
         with self._lock:
             if session_id in self._sessions:
                 self._sessions[session_id]["status"] = "completed"
                 self._sessions[session_id]["result"] = result
                 self._sessions[session_id]["progress"] = "done"
+                self._sessions[session_id]["timing"] = timing
 
     def fail(self, session_id: str, error: str) -> None:
         with self._lock:

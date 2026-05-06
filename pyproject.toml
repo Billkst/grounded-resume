@@ -12,7 +12,9 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+  "basedpyright>=1.0,<2.0",
   "pytest>=8.2,<9.0",
+  "pytest-cov>=5.0,<6.0",
   "ruff>=0.5,<1.0",
 ]
 
@@ -31,3 +33,4 @@ ignore = []
 
 [tool.basedpyright]
 extraPaths = ["src"]
+typeCheckingMode = "basic"

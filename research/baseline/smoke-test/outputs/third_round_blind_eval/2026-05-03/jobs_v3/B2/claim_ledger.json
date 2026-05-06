@@ -1,0 +1,188 @@
+{
+  "sample": "B2",
+  "material_density": "moderate",
+  "target_role": "小红书 Product Engineer-产品工程师（AI应用方向）",
+  "claims": [
+    {
+      "bullet_id": "B2-B01",
+      "section": "基本信息",
+      "bullet_text": "电子科技大学｜计算机相关专业｜硕士在读｜2027 年毕业",
+      "support_level": "素材支撑",
+      "claim_text": [
+        {"text": "候选人为电子科技大学计算机相关专业硕士在读", "evidence_quote": "学校：电子科技大学；专业：计算机相关；学历：硕士在读"},
+        {"text": "候选人毕业时间为 2027 年", "evidence_quote": "毕业时间：2027 年"}
+      ],
+      "numbers": [{"number": "2027", "source_quote": "毕业时间：2027 年"}]
+    },
+    {
+      "bullet_id": "B2-B02",
+      "section": "基本信息",
+      "bullet_text": "求职方向：AI 应用开发实习、Agent 开发实习、Product Engineer（AI 应用方向）",
+      "support_level": "素材支撑",
+      "claim_text": [
+        {"text": "候选人求职方向包含 AI 应用开发和 Agent 开发相关实习", "evidence_quote": "求职目标：申请 AI 应用开发 / Agent 开发相关实习岗"},
+        {"text": "目标岗位为 Product Engineer（AI 应用方向）", "evidence_quote": "岗位名称：Product Engineer-产品工程师（AI应用方向）"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B03",
+      "section": "基本信息",
+      "bullet_text": "关注方向：LLM 应用、研发工具链、需求拆解、原型验证、评估与迭代",
+      "support_level": "合理推断",
+      "claim_text": [
+        {"text": "候选人关注 LLM 应用和研发工具链相关方向", "evidence_quote": "岗位核心方向为 AI Native 研发工具链与 LLM 工程化落地；求职目标：申请 AI 应用开发 / Agent 开发相关实习岗"},
+        {"text": "候选人有需求拆解、原型验证、评估迭代相关实践线索", "evidence_quote": "尝试用多轮提示词把复杂任务拆成几个步骤；做过一个简单的文档问答 demo；自己测过几个例子，发现有引用不准的问题"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B04",
+      "section": "教育背景",
+      "bullet_text": "具备计算机相关专业背景，持续关注 LLM 应用开发、AI Agent 与 AI Native 研发工具链方向。",
+      "support_level": "素材支撑",
+      "claim_text": [
+        {"text": "候选人具备计算机相关专业背景", "evidence_quote": "专业：计算机相关"},
+        {"text": "候选人求职方向与 LLM 应用、AI Agent、AI Native 研发工具链相关", "evidence_quote": "求职目标：申请 AI 应用开发 / Agent 开发相关实习岗；岗位核心方向为 AI Native 研发工具链与 LLM 工程化落地"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B05",
+      "section": "文档问答 Demo",
+      "bullet_text": "使用 Python 调用模型 API，搭建基础文档问答 Demo，完成从文档接入到问答输出的原型验证。",
+      "support_level": "素材支撑",
+      "claim_text": [
+        {"text": "候选人使用 Python 调用模型 API", "evidence_quote": "用 Python 调过模型 API"},
+        {"text": "候选人做过基础文档问答 Demo", "evidence_quote": "做过一个简单的文档问答 demo；可以处理基础问答"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B06",
+      "section": "文档问答 Demo",
+      "bullet_text": "使用向量检索框架接入文档内容，围绕“基于文档回答问题”的用户场景验证检索与生成流程。",
+      "support_level": "素材支撑",
+      "claim_text": [
+        {"text": "候选人使用过向量检索框架", "evidence_quote": "用过向量检索框架"},
+        {"text": "文档问答 Demo 面向基于文档的问答场景", "evidence_quote": "做过一个简单的文档问答 demo；可以处理基础问答"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B07",
+      "section": "文档问答 Demo",
+      "bullet_text": "自行选取样例进行测试，发现回答中存在引用不准的问题，并据此关注答案可信度、引用对齐和检索质量评估。",
+      "support_level": "素材支撑",
+      "claim_text": [
+        {"text": "候选人自己测试过样例", "evidence_quote": "自己测过几个例子"},
+        {"text": "候选人发现引用不准问题", "evidence_quote": "发现有引用不准的问题"},
+        {"text": "可信度、引用对齐和检索质量评估是对引用不准问题的保守总结", "evidence_quote": "发现有引用不准的问题"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B08",
+      "section": "文档问答 Demo",
+      "bullet_text": "将项目经验沉淀为对 AI 应用落地流程的理解：先拆解问答场景，再搭建可运行原型，最后通过样例测试暴露迭代问题。",
+      "support_level": "合理推断",
+      "claim_text": [
+        {"text": "项目体现从场景到原型再到测试问题发现的流程", "evidence_quote": "做过一个简单的文档问答 demo；可以处理基础问答；自己测过几个例子，发现有引用不准的问题"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B09",
+      "section": "任务分解小工具",
+      "bullet_text": "尝试用多轮提示词将复杂任务拆解为多个步骤，验证 LLM 在任务理解与多步骤规划场景中的基础表现。",
+      "support_level": "素材支撑",
+      "claim_text": [
+        {"text": "候选人尝试用多轮提示词拆解复杂任务", "evidence_quote": "尝试用多轮提示词把复杂任务拆成几个步骤"},
+        {"text": "该实践与多步骤规划场景相关", "evidence_quote": "能输出任务步骤，但效果不稳定"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B10",
+      "section": "任务分解小工具",
+      "bullet_text": "做过简单工具调用实验，探索模型输出任务步骤后与外部工具协作的可行性。",
+      "support_level": "素材支撑",
+      "claim_text": [
+        {"text": "候选人做过简单工具调用实验", "evidence_quote": "做过简单的工具调用实验"},
+        {"text": "实验探索模型任务步骤与工具调用的协作可行性", "evidence_quote": "尝试用多轮提示词把复杂任务拆成几个步骤；做过简单的工具调用实验"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B11",
+      "section": "任务分解小工具",
+      "bullet_text": "在验证过程中观察到输出步骤可用但效果不稳定，因此对 Agent 控制流程、任务规划可靠性和评估迭代有直接认知。",
+      "support_level": "素材支撑",
+      "claim_text": [
+        {"text": "工具能输出任务步骤但效果不稳定", "evidence_quote": "能输出任务步骤，但效果不稳定"},
+        {"text": "候选人对任务规划可靠性和评估迭代有直接观察", "evidence_quote": "能输出任务步骤，但效果不稳定；主要是自己练习和验证想法"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B12",
+      "section": "任务分解小工具",
+      "bullet_text": "将该练习定位为个人想法验证型项目，重点关注需求拆解、提示词流程设计和结果稳定性，而非正式上线交付。",
+      "support_level": "素材支撑",
+      "claim_text": [
+        {"text": "该项目是个人练习和想法验证", "evidence_quote": "主要是自己练习和验证想法"},
+        {"text": "该项目没有正式上线或大规模部署经验", "evidence_quote": "没有正式上线或大规模部署经验"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B13",
+      "section": "技能与补充信息",
+      "bullet_text": "编程与工程工具：Python、Git、基础前端。",
+      "support_level": "素材支撑",
+      "claim_text": [
+        {"text": "候选人会 Python", "evidence_quote": "会 Python"},
+        {"text": "候选人会 Git 和基础前端", "evidence_quote": "会 Git、基础前端"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B14",
+      "section": "技能与补充信息",
+      "bullet_text": "AI 应用工具：使用过 LangChain、Dify、OpenAI API，具备调用模型 API、搭建 Demo、验证基础流程的实践经验。",
+      "support_level": "素材支撑",
+      "claim_text": [
+        {"text": "候选人使用过 LangChain、Dify、OpenAI API", "evidence_quote": "用过 LangChain / Dify / OpenAI API"},
+        {"text": "候选人具备调用模型 API 和搭建 Demo 的实践经验", "evidence_quote": "用 Python 调过模型 API；做过一个简单的文档问答 demo"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B15",
+      "section": "技能与补充信息",
+      "bullet_text": "产品工程相关能力：能够围绕用户场景拆解需求，制作可运行原型，并通过样例测试发现问题、形成后续迭代方向。",
+      "support_level": "合理推断",
+      "claim_text": [
+        {"text": "候选人有需求拆解、原型制作和样例测试问题发现的相关经历", "evidence_quote": "尝试用多轮提示词把复杂任务拆成几个步骤；做过一个简单的文档问答 demo；自己测过几个例子，发现有引用不准的问题"}
+      ],
+      "numbers": []
+    },
+    {
+      "bullet_id": "B2-B16",
+      "section": "技能与补充信息",
+      "bullet_text": "岗位匹配方向：对 AI Native 研发工具链、AI Coding、AI Testing、Agent 工程化和 LLM 在研发场景中的可靠落地有明确兴趣。",
+      "support_level": "合理推断",
+      "claim_text": [
+        {"text": "候选人求职方向与 AI 应用开发和 Agent 开发相关", "evidence_quote": "求职目标：申请 AI 应用开发 / Agent 开发相关实习岗"},
+        {"text": "AI Native 研发工具链、AI Coding、AI Testing、Agent 工程化来自目标岗位方向", "evidence_quote": "构建AI Native研发工具链；深度参与AI Coding、AI Testing、AI DevOps等核心领域"}
+      ],
+      "numbers": []
+    }
+  ],
+  "blocked_claims": [
+    {"claim": "主导 AI Native 研发工具链建设", "reason": "素材仅支持个人 Demo 和练习，不支持主导或工具链建设"},
+    {"claim": "实现生产级 RAG 系统并上线", "reason": "素材明确说明没有正式上线或大规模部署经验"},
+    {"claim": "负责 Multi-Agent 协作架构设计", "reason": "素材只支持多轮提示词和简单工具调用实验"},
+    {"claim": "提升准确率、用户数或业务收益", "reason": "原始素材没有提供任何效果指标或业务数字"}
+  ]
+}

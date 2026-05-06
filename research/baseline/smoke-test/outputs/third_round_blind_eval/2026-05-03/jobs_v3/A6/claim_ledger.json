@@ -1,0 +1,95 @@
+{
+  "sample": "A6",
+  "material_density": "sparse",
+  "target_role": "美团 AI产品经理实习岗",
+  "safety_constraints": {
+    "no_percentages": true,
+    "no_revenue": true,
+    "no_user_counts": true,
+    "no_team_size": true,
+    "no_unsupported_ownership_verbs": true,
+    "no_invented_outcomes": true
+  },
+  "claims": [
+    {
+      "bullet_id": "A6-B01",
+      "resume_section": "基本信息",
+      "claim": "学历为硕士在读，学校为电子科技大学，专业为计算机相关，毕业时间为 2027 年。",
+      "support_type": "direct_material",
+      "source_evidence": ["用户匿名基础信息：学历：硕士在读", "学校：电子科技大学", "专业：计算机相关", "毕业时间：2027 年"],
+      "reasonable_inference": [],
+      "numbers": ["2027"],
+      "risk_level": "low"
+    },
+    {
+      "bullet_id": "A6-B02",
+      "resume_section": "简易问答系统课程项目",
+      "claim": "围绕简单问答系统的用户提问与系统回复链路，梳理输入问题、Prompt 表达与回答结果之间的关系。",
+      "support_type": "reasonable_inference",
+      "source_evidence": ["原始素材 2：做过简单问答系统", "试过不同 prompt", "做过非常基础的结果观察"],
+      "reasonable_inference": ["将问答系统拆成用户提问、Prompt 表达、系统回复，是对材料中课程项目过程的产品化表述，不声称正式产品化或结果"],
+      "numbers": [],
+      "risk_level": "medium"
+    },
+    {
+      "bullet_id": "A6-B03",
+      "resume_section": "简易问答系统课程项目",
+      "claim": "尝试不同 Prompt 表达方式，观察回复在准确性、完整性与表达风格上的差异。",
+      "support_type": "direct_material",
+      "source_evidence": ["原始素材 2：试过不同 prompt", "做过非常基础的结果观察", "ChatGPT baseline 参考：观察回答结果在准确性、完整性、表达方式上的差异"],
+      "reasonable_inference": [],
+      "numbers": [],
+      "risk_level": "low"
+    },
+    {
+      "bullet_id": "A6-B04",
+      "resume_section": "简易问答系统课程项目",
+      "claim": "将课程项目中的问答链路拆解为任务输入、模型响应、结果判断与体验反馈等环节，支持后续补充评测方案和产品文档。",
+      "support_type": "reasonable_inference",
+      "source_evidence": ["原始素材 2：做过简单问答系统", "做过非常基础的结果观察", "JD：参与核心业务端到端的效果定义与测试，设计并执行针对各功能的评测方案"],
+      "reasonable_inference": ["任务输入、模型响应、结果判断与体验反馈来自 JD 对 AI 能力评测和产品优化的要求，是对已有课程项目的安全拆解；仅称支持后续补充，不声称已完成完整评测"],
+      "numbers": [],
+      "risk_level": "medium"
+    },
+    {
+      "bullet_id": "A6-B05",
+      "resume_section": "AI 工具使用与 Agent 产品理解",
+      "claim": "使用 ChatGPT、Claude、Cursor 等 AI 工具完成日常信息理解、内容生成与代码辅助任务。",
+      "support_type": "reasonable_inference",
+      "source_evidence": ["原始素材 1：用过 ChatGPT、Claude、Cursor"],
+      "reasonable_inference": ["信息理解、内容生成与代码辅助是这些工具的常见使用场景，未声称专业产出或业务结果"],
+      "numbers": [],
+      "risk_level": "medium"
+    },
+    {
+      "bullet_id": "A6-B06",
+      "resume_section": "AI 工具使用与 Agent 产品理解",
+      "claim": "关注 Agent 产品中的任务理解、步骤拆解、上下文保持与结果反馈问题。",
+      "support_type": "reasonable_inference",
+      "source_evidence": ["原始素材 1：看过一些 AI 产品和 Agent 相关内容", "对 Agent 有一些自己的理解", "JD：移动端 AI Agent 产品的探索与优化；设计和调试 Agentic 行为的 Prompt"],
+      "reasonable_inference": ["任务理解、步骤拆解、上下文保持与结果反馈是 Agent 产品与 JD 中 Agentic 行为相关的合理概念拆解"],
+      "numbers": [],
+      "risk_level": "medium"
+    },
+    {
+      "bullet_id": "A6-B07",
+      "resume_section": "AI 工具使用与 Agent 产品理解",
+      "claim": "阅读 AI 产品经理与 Agent 产品相关岗位要求，梳理 Prompt 基本功、AI 能力评测、场景挖掘与产品优化等能力要点。",
+      "support_type": "direct_material",
+      "source_evidence": ["原始素材 3：看过一些岗位 JD", "想做 AI 产品经理", "JD：Prompt 基本功扎实；参与 AI 能力评测、产品优化以及场景挖掘"],
+      "reasonable_inference": [],
+      "numbers": [],
+      "risk_level": "low"
+    },
+    {
+      "bullet_id": "A6-B08",
+      "resume_section": "AI 工具使用与 Agent 产品理解",
+      "claim": "关注移动端 AI Agent 场景中的体验问题，整理候选待验证方向，包括用户输入是否清晰、回复是否可执行、结果是否便于继续操作等。",
+      "support_type": "reasonable_inference",
+      "source_evidence": ["原始素材 1：对 Agent 有一些自己的理解，但没有系统输出文档", "JD：负责移动端 AI Agent 产品的探索与优化；探索提升 Agent 表现和用户体验的最佳实践"],
+      "reasonable_inference": ["关注...体验问题仅表示对 JD 业务语境中移动端 AI Agent 场景的体验维度有初步认识；整理候选待验证方向限定为思路梳理，不声称已产出系统文档、完成验证或取得优化结果"],
+      "numbers": [],
+      "risk_level": "medium"
+    }
+  ]
+}

@@ -4,15 +4,14 @@ Usage:
     GROUNDED_RESUME_DEEPSEEK_API_KEY=sk-xxx python tests/quality_verification.py
 """
 
-import json
 import os
 import sys
 
 from grounded_resume.core.config import LLMConfig
 from grounded_resume.core.generator import (
+    analyze_gaps,
     build_job_profile,
     generate_ideal_resume,
-    analyze_gaps,
 )
 from grounded_resume.core.llm_service import LLMService
 
@@ -70,7 +69,9 @@ def main():
 
     # Step 2: Ideal resume
     print("\n[2/3] Generating ideal resume...")
-    resume_data = generate_ideal_resume(llm, profile, sample["target_role"], sample["experience_level"])
+    resume_data = generate_ideal_resume(
+        llm, profile, sample["target_role"], sample["experience_level"]
+    )
     md = resume_data.get("markdown", "")
     sections = resume_data.get("sections", [])
     print(f"  Sections: {len(sections)}")

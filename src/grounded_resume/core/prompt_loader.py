@@ -7,7 +7,6 @@ from typing import Any
 
 import yaml
 
-
 _PROMPTS_ROOT = Path(__file__).parent.parent.parent.parent / "prompts"
 
 
