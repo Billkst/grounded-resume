@@ -134,7 +134,7 @@ export default function IdealResultView({ idealResume, gapReport, timing }: Prop
           className="p-4 rounded-lg mb-4 text-xs font-medium"
           style={{ background: 'rgba(234, 179, 8, 0.08)', border: '1px solid rgba(234, 179, 8, 0.15)', color: 'rgba(234, 179, 8, 0.8)' }}
         >
-          该简历为理想目标画像，代表"该岗位理论上的完美候选人"，非您当前可投递版本。请参照下方差距报告了解您与目标的差距。
+          该简历为理想目标画像，代表{'“'}该岗位理论上的完美候选人{'”'}，非您当前可投递版本。请参照下方差距报告了解您与目标的差距。
         </div>
 
         <div
