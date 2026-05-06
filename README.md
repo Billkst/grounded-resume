@@ -1,5 +1,7 @@
-<p align="right">
-  <b>English</b> | <a href="README_CN.md">中文</a>
+<p align="center">
+  <a href="README.md"><img src="https://img.shields.io/badge/EN-English-6366f1?style=for-the-badge&logo=markdown" alt="English"></a>
+  &nbsp;
+  <a href="README_CN.md"><img src="https://img.shields.io/badge/CN-中文-gray?style=for-the-badge&logo=markdown" alt="中文"></a>
 </p>
 
 # ![logo](https://img.shields.io/badge/🎯-Grounded%20Resume-6366f1?style=for-the-badge)
