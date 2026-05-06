@@ -6,6 +6,6 @@ export interface LLMConfig {
 
 export const DEFAULT_LLM_CONFIG: LLMConfig = {
   provider: 'deepseek',
-  model: 'deepseek-chat',
+  model: 'deepseek-v4-pro',
   apiKey: '',
 };

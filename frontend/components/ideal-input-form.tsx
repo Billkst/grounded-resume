@@ -20,6 +20,17 @@ const QUICK_ROLES = [
   '管培生',
 ];
 
+const PROVIDER_DEFAULT_MODEL: Record<string, string> = {
+  deepseek: 'deepseek-v4-pro',
+  openai: 'gpt-5.5',
+  kimi: 'kimi-k2.6',
+  glm: 'glm-5.5',
+  claude: 'claude-opus-4-7',
+  qwen: 'qwen3.6-max-preview',
+  gemini: 'gemini-3.1-pro-preview',
+  third_party: 'custom',
+};
+
 const EXPERIENCE_OPTIONS: { value: ExperienceLevel; label: string }[] = [
   { value: 'new_grad', label: '实习/应届' },
   { value: '1_3_years', label: '1-3年' },
@@ -51,14 +62,12 @@ interface Props {
 
 export default function IdealInputForm({ onGenerate, loading }: Props) {
   const [experienceLevel, setExperienceLevel] = useState<ExperienceLevel>('new_grad');
-  const [targetRole, setTargetRole] = useState('AI产品经理');
+  const [targetRole, setTargetRole] = useState('AI产品经理（实习）');
   const [activeTag, setActiveTag] = useState('AI产品经理');
   const [background, setBackground] = useState('');
   const [jdText, setJdText] = useState('');
   const [showLlm, setShowLlm] = useState(true);
   const [llmConfig, setLlmConfig] = useState<LLMConfig>(DEFAULT_LLM_CONFIG);
-
-  const suffix = experienceLevel === 'new_grad' ? '（实习）' : '';
 
   const handleTagClick = (role: string) => {
     setActiveTag(role);
@@ -233,7 +242,7 @@ export default function IdealInputForm({ onGenerate, loading }: Props) {
                 <label className="block text-xs text-white/45 mb-1.5">厂商</label>
                 <select
                   value={llmConfig.provider}
-                  onChange={(e) => setLlmConfig({ ...llmConfig, provider: e.target.value })}
+                  onChange={(e) => setLlmConfig({ ...llmConfig, provider: e.target.value, model: PROVIDER_DEFAULT_MODEL[e.target.value] || '' })}
                   className={`${inputBaseClass} ${inputHoverFocus}`}
                   style={inputStyle}
                 >
