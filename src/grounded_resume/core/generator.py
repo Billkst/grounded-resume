@@ -37,6 +37,7 @@ def build_job_profile(
         max_tokens=prompt.max_tokens,
     )
 
+    data = _normalize_job_profile(data)
     profile = JobProfile.model_validate(data)
     logger.info(
         "Job profile built: %d hard reqs, %d capabilities",
@@ -120,6 +121,8 @@ def analyze_gaps(
         max_tokens=prompt.max_tokens,
     )
 
+    data = _normalize_gap_report(data)
+
     logger.info(
         "Gap analysis: score=%d, blockers=%d, critical=%d, tips=%d",
         data.get("overall_score", 0),
@@ -141,11 +144,83 @@ def _experience_label(level: str) -> str:
     return mapping.get(level, level)
 
 
+def _normalize_gap_report(data: dict) -> dict:
+    """Normalize LLM gap analysis output to match GapReport model fields."""
+    # Map common LLM field name variations
+    if "totalScore" in data and "overall_score" not in data:
+        data["overall_score"] = data.pop("totalScore")
+    if "overview" in data and "summary" not in data:
+        data["summary"] = data.pop("overview")
+
+    # Normalize blockers
+    for key in ("blockerGaps", "blockers", "blocker_gaps"):
+        if key in data and "blockers" not in data:
+            data["blockers"] = data.pop(key)
+            break
+    for item in data.get("blockers", []):
+        if isinstance(item, dict):
+            if "missing" in item and "gap" not in item:
+                item["gap"] = item.pop("missing")
+            if "fatalReason" in item and "why_fatal" not in item:
+                item["why_fatal"] = item.pop("fatalReason")
+
+    # Normalize critical gaps
+    for item in data.get("critical_gaps", data.get("criticalGaps", [])):
+        if isinstance(item, dict):
+            if "path" in item and "action_path" not in item:
+                item["action_path"] = item.pop("path")
+            if "estimated_time" not in item:
+                item["estimated_time"] = item.get("estimated_time", "")
+
+    # Normalize expression tips (may be strings or dicts)
+    tips = data.get("expression_tips", data.get("expressionTips", []))
+    normalized_tips = []
+    for tip in tips:
+        if isinstance(tip, str):
+            normalized_tips.append({
+                "from_text": tip,
+                "to_text": "",
+                "method": "",
+            })
+        elif isinstance(tip, dict):
+            if "from_text" not in tip and "fromText" in tip:
+                tip["from_text"] = tip.pop("fromText")
+            if "to_text" not in tip and "toText" in tip:
+                tip["to_text"] = tip.pop("toText")
+            normalized_tips.append(tip)
+    data["expression_tips"] = normalized_tips
+
+    # Ensure required fields exist
+    data.setdefault("overall_score", 50)
+    data.setdefault("summary", "")
+    data.setdefault("blockers", [])
+    data.setdefault("critical_gaps", [])
+    return data
+
+
+def _normalize_job_profile(data: dict) -> dict:
+    """Normalize LLM output to match JobProfile model fields."""
+    data.pop("job_title", None)
+    data.pop("role_name", None)
+    data.pop("title", None)
+    return data
+
+
 def _sections_to_markdown(sections: list[dict]) -> str:
     lines: list[str] = []
     for sec in sections:
         lines.append(f"## {sec.get('title', '')}")
         lines.append("")
-        lines.append(sec.get("content", ""))
+        content = sec.get("content", "")
+        if isinstance(content, list):
+            for item in content:
+                if isinstance(item, str):
+                    lines.append(f"- {item}")
+                elif isinstance(item, dict):
+                    lines.append(f"- {item.get('text', str(item))}")
+        elif isinstance(content, str):
+            lines.append(content)
+        else:
+            lines.append(str(content))
         lines.append("")
     return "\n".join(lines).strip()

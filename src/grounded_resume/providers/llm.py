@@ -49,13 +49,14 @@ class LLMRequest:
     timeout_s: int = 120
 
 
-@dataclass(frozen=True)
+@dataclass
 class LLMResponse:
     provider_id: str
     model: str
     text: str
     input_tokens: int | None = None
     output_tokens: int | None = None
+    finish_reason: str | None = None
 
 
 class LLMProvider(Protocol):

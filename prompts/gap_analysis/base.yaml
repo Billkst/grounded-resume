@@ -43,10 +43,23 @@ user_template: |
   - 补足路径必须具体到"做什么项目、用什么工具、产出什么"，禁止"提升XX能力"这种虚的建议
   - 核心差距上限5条，超出的只保留最重要的5条
   - 如果致命差距为0且综合分≥80，总览应明确说"可以投递"
-  - 使用用户能看懂的自然语言，禁止使用技术术语（如gap_id、mapping等）
 
-  ## 输出格式
-  请直接输出JSON，不要输出Markdown或分析文字。
+  ## 输出JSON格式
+  {
+    "overall_score": 50,
+    "summary": "一句话总结：现在能投吗？",
+    "blockers": [
+      {"gap": "缺少XX学历", "why_fatal": "JD明确要求", "alternative": "如有高星开源项目可替代"}
+    ],
+    "critical_gaps": [
+      {"ideal": "独立完成Agent原型开发", "current": "仅了解概念", "action_path": "用LangChain做多Agent协作demo，发布到HuggingFace", "estimated_time": "2-3周"}
+    ],
+    "expression_tips": [
+      {"from_text": "用过ChatGPT", "to_text": "熟练使用大语言模型辅助编程与文档整理", "method": "用动词+场景+结果重构"}
+    ]
+  }
+
+  请直接输出以上格式的JSON，不要用Markdown代码块包裹，不要输出任何分析文字。
 
 output_schema:
   type: object

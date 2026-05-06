@@ -2,29 +2,74 @@
 
 from __future__ import annotations
 
-from pydantic import Field
+from typing import Any
+
+from pydantic import Field, field_validator, model_validator
 
 from grounded_resume.core.models.schemas import StrictModel
 
 
+def _classify_hard_requirement(text: str) -> str:
+    """Infer the category of a hard requirement from its text."""
+    if any(kw in text for kw in ["学历", "本科", "硕士", "博士", "研究生"]):
+        return "education"
+    if any(kw in text for kw in ["专业", "计算机", "软件工程", "人工智能", "AI"]):
+        return "major"
+    if any(kw in text for kw in ["实习", "每周", "到岗", "天", "月", "周"]):
+        return "availability"
+    if any(kw in text for kw in ["熟悉", "掌握", "精通", "了解", "经验", "能力"]):
+        return "skill"
+    return "other"
+
+
 class HardRequirement(StrictModel):
     requirement: str
-    category: str  # education | major | skill | availability | other
+    category: str = "other"
+
+    @field_validator("category", mode="before")
+    @classmethod
+    def infer_category(cls, v: Any, info: Any) -> str:
+        if isinstance(v, str) and v not in ("education", "major", "skill", "availability", "other"):
+            return _classify_hard_requirement(v)
+        return v if isinstance(v, str) and v else "other"
 
 
 class CoreCapability(StrictModel):
     name: str
-    weight: int = Field(ge=1, le=10)
-    description: str
+    weight: int = Field(default=5, ge=1, le=10)
+    description: str = ""
+
+    @model_validator(mode="before")
+    @classmethod
+    def map_llm_fields(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            capability_val = data.pop("capability", None)
+            if capability_val is not None and "name" not in data:
+                data["name"] = capability_val
+            if "weight" not in data:
+                data["weight"] = 5
+            if "description" not in data:
+                data["description"] = ""
+        return data
 
 
 class JobProfile(StrictModel):
     hard_requirements: list[HardRequirement]
     core_capabilities: list[CoreCapability]
-    bonus_points: list[str]
-    ats_keywords_high: list[str]
-    ats_keywords_medium: list[str]
-    ideal_candidate_profile: str  # ~200 chars
+    bonus_points: list[str] = []
+    ats_keywords_high: list[str] = []
+    ats_keywords_medium: list[str] = []
+    ideal_candidate_profile: str = ""
+
+    @field_validator("hard_requirements", mode="before")
+    @classmethod
+    def coerce_hard_requirements(cls, v: Any) -> Any:
+        if isinstance(v, list):
+            return [
+                {"requirement": item} if isinstance(item, str) else item
+                for item in v
+            ]
+        return v
 
 
 class ResumeSection(StrictModel):
