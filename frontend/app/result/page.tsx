@@ -205,6 +205,5 @@ function ResultContent() {
           )}
         </div>
       </div>
-    </div>
   );
 }
