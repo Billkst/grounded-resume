@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import cast
+from typing import Any, cast
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException
 
@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api")
 
 session_store = IdealSessionStore()
-job_profile_cache: dict[str, dict] = {}
+job_profile_cache: dict[str, dict[str, Any]] = {}
 
 
 def _build_llm_service(llm_config_input) -> LLMService:
@@ -54,7 +54,7 @@ def _build_llm_service(llm_config_input) -> LLMService:
 def create_generation(
     request: GenerateRequest,
     background_tasks: BackgroundTasks,
-) -> dict:
+) -> dict[str, Any]:
     if not request.llm_config or not request.llm_config.api_key:
         raise HTTPException(
             status_code=400,
@@ -72,7 +72,7 @@ def create_generation(
 
 
 @router.get("/generate/{session_id}")
-def get_generation(session_id: str) -> dict:
+def get_generation(session_id: str) -> dict[str, Any]:
     session = session_store.get(session_id)
     if session is None:
         raise HTTPException(status_code=404, detail="Session not found")
@@ -84,7 +84,7 @@ def get_generation(session_id: str) -> dict:
     }
 
     if session["status"] == "completed":
-        result = cast(dict, session["result"])
+        result = cast(dict[str, Any], session["result"])
         response["ideal_resume"] = result.get("ideal_resume")
         response["gap_report"] = result.get("gap_report")
         response["timing"] = session.get("timing")
@@ -95,7 +95,7 @@ def get_generation(session_id: str) -> dict:
 
 
 @router.get("/health")
-def health() -> dict:
+def health() -> dict[str, str]:
     return {"status": "ok", "version": "2.0.0"}
 
 

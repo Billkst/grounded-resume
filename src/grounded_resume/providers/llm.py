@@ -73,11 +73,12 @@ class FakeLLMProvider:
         self.response_text = response_text
 
     def complete(self, request: LLMRequest) -> LLMResponse:
+        input_chars = sum(len(m.content) for m in request.messages)
         return LLMResponse(
             provider_id=self.provider_id,
             model=request.model,
             text=self.response_text,
-            input_tokens=len(request.system_prompt) + len(request.user_prompt),
+            input_tokens=input_chars,
             output_tokens=len(self.response_text),
         )
 

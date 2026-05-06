@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 test.setTimeout(300_000);
 
 test('real end-to-end ideal resume generation with DeepSeek', async ({ page }) => {
+  test.skip(!!process.env.CI, 'skip in CI — requires real DeepSeek API');
   await page.goto('/');
 
   // Fill form

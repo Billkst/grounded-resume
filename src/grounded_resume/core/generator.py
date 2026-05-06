@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+from typing import Any
 
 from grounded_resume.core.ideal_models import (
     GapReport,
@@ -62,7 +63,7 @@ def generate_ideal_resume(
     job_profile: JobProfile,
     target_role: str,
     experience_level: str,
-) -> dict:
+) -> dict[str, Any]:
     """Step 2: Generate ideal candidate resume from job profile."""
     family = model_family(llm.config.provider)
     prompt = PromptTemplate("ideal_resume", family)
@@ -104,7 +105,7 @@ def analyze_gaps(
     background: str,
     ideal_resume_markdown: str,
     experience_level: str,
-) -> dict:
+) -> dict[str, Any]:
     """Step 3: Analyze gaps between user background and ideal profile."""
     family = model_family(llm.config.provider)
     prompt = PromptTemplate("gap_analysis", family)
@@ -153,7 +154,7 @@ def _experience_label(level: str) -> str:
     return mapping.get(level, level)
 
 
-def _normalize_gap_report(data: dict) -> dict:
+def _normalize_gap_report(data: dict[str, Any]) -> dict[str, Any]:
     """Normalize LLM gap analysis output to match GapReport model fields."""
     # Map common LLM field name variations
     if "totalScore" in data and "overall_score" not in data:
@@ -209,7 +210,7 @@ def _normalize_gap_report(data: dict) -> dict:
     return data
 
 
-def _normalize_job_profile(data: dict) -> dict:
+def _normalize_job_profile(data: dict[str, Any]) -> dict[str, Any]:
     """Strip extra fields LLM may return, keep only JobProfile model fields."""
     allowed = {
         "hard_requirements", "core_capabilities", "bonus_points",
@@ -218,7 +219,7 @@ def _normalize_job_profile(data: dict) -> dict:
     return {k: v for k, v in data.items() if k in allowed}
 
 
-def _sections_to_markdown(sections: list[dict]) -> str:
+def _sections_to_markdown(sections: list[dict[str, Any]]) -> str:
     lines: list[str] = []
     for sec in sections:
         lines.append(f"## {sec.get('title', '')}")
