@@ -6,8 +6,6 @@ import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { pollGeneration } from '@/lib/ideal-api';
 import type { IdealResume, GapReport, GenerateResponse, TimingInfo } from '@/lib/ideal-types';
-import FluidBackground from '@/components/fluid-background';
-import DotMatrix from '@/components/dot-matrix';
 import IdealResultView from '@/components/ideal-result-view';
 
 const PROGRESS_LABELS: Record<string, string> = {
@@ -28,14 +26,10 @@ function formatElapsed(seconds: number): string {
 export default function ResultPage() {
   return (
     <Suspense fallback={
-      <div className="relative min-h-screen">
-        <FluidBackground />
-        <DotMatrix />
-        <div className="relative z-10 flex items-center justify-center min-h-screen">
-          <div className="inline-flex items-center gap-3">
-            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            <span className="text-white/60">加载中...</span>
-          </div>
+      <div className="relative z-10 flex items-center justify-center min-h-screen">
+        <div className="inline-flex items-center gap-3">
+          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+          <span className="text-white/60">加载中...</span>
         </div>
       </div>
     }>
@@ -100,11 +94,7 @@ function ResultContent() {
   }, [sessionId, router]);
 
   return (
-    <div className="relative min-h-screen">
-      <FluidBackground />
-      <DotMatrix />
-
-      <div className="relative z-10">
+    <div className="relative z-10">
         {/* Score Hero */}
         <div
           className="relative overflow-hidden px-6 py-10"
