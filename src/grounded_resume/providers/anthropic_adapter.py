@@ -22,7 +22,9 @@ class AnthropicAdapter:
         self.api_key: str = api_key
 
     def complete(self, request: LLMRequest) -> LLMResponse:
-        system_prompts = [message.content for message in request.messages if message.role == "system"]
+        system_prompts = [  # noqa: E501
+            message.content for message in request.messages if message.role == "system"
+        ]
         messages = [
             {"role": message.role, "content": message.content}
             for message in request.messages

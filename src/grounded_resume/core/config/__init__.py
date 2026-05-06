@@ -5,7 +5,6 @@ from typing import Literal, cast
 
 from pydantic import BaseModel, Field, model_validator
 
-
 DEPLOYMENT_MODE = os.environ.get("DEPLOYMENT_MODE", "local")
 ENABLE_AUTH = os.environ.get("ENABLE_AUTH", "false").lower() == "true"
 

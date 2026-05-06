@@ -16,10 +16,10 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(name)s: %(message)s",
 )
 
-from grounded_resume.core.config import DEPLOYMENT_MODE
-from grounded_resume.core.llm_service import LLMService
+from grounded_resume.core.config import DEPLOYMENT_MODE  # noqa: E402
+from grounded_resume.core.llm_service import LLMService  # noqa: E402
 
-from .ideal_routes import router as ideal_router
+from .ideal_routes import router as ideal_router  # noqa: E402
 
 
 def create_app() -> FastAPI:
