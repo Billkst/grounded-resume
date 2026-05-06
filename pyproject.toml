@@ -32,3 +32,4 @@ ignore = []
 
 [tool.basedpyright]
 extraPaths = ["src"]
+typeCheckingMode = "basic"
