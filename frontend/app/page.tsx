@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import Navbar from '@/components/navbar';
+import FluidBackground from '@/components/fluid-background';
+import DotMatrix from '@/components/dot-matrix';
 import GlassCard from '@/components/glass-card';
 import IdealInputForm from '@/components/ideal-input-form';
 import { createGeneration } from '@/lib/ideal-api';
