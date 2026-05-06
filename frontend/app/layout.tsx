@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import FluidBackground from '@/components/fluid-background'
+import DotMatrix from '@/components/dot-matrix'
 
 export const metadata: Metadata = {
   title: 'Grounded Resume — 发现你的理想简历',
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="zh-CN">
       <body className="min-h-screen bg-[#0A0A0F] text-white antialiased">
         <FluidBackground />
+        <DotMatrix />
         {children}
       </body>
     </html>
