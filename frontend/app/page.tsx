@@ -3,9 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import Navbar from '@/components/navbar';
-import FluidBackground from '@/components/fluid-background';
-import DotMatrix from '@/components/dot-matrix';
 import GlassCard from '@/components/glass-card';
 import IdealInputForm from '@/components/ideal-input-form';
 import { createGeneration } from '@/lib/ideal-api';
@@ -50,7 +47,6 @@ export default function Home() {
   return (
     <div className="relative min-h-screen">
       <div className="relative z-10">
-
         {/* Hero Section */}
         <section className="flex flex-col items-center text-center px-6 pt-16 pb-8">
           <motion.h1
