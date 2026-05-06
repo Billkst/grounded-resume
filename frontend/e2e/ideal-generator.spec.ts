@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('ideal generator input page loads', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('h1')).toContainText('发现你的理想简历');
-  await expect(page.locator('select')).toBeVisible();
+  await expect(page.locator('select').first()).toBeVisible();
   await expect(page.locator('input[type="text"]').first()).toBeVisible();
   await expect(page.getByText('AI产品经理')).toBeVisible();
 });
