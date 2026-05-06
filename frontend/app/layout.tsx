@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import FluidBackground from '@/components/fluid-background'
 
 export const metadata: Metadata = {
   title: 'Grounded Resume — 发现你的理想简历',
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body className="min-h-screen bg-[#0A0A0F] text-white antialiased">
+        <FluidBackground />
         {children}
       </body>
     </html>
