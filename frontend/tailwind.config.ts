@@ -9,22 +9,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: '#11100E',
-        paper: '#F4EFE3',
-        bone: '#DDD2BE',
-        graphite: '#2A2925',
-        blueprint: '#1D4E5F',
-        'oxidized-cyan': '#2D9CA8',
-        brass: '#B8893B',
-        'verdict-red': '#C93A2F',
-        'evidence-green': '#4F7E55',
-        'warning-amber': '#D69A2D',
+        dark: {
+          bg: '#0A0A0F',
+          card: '#111118',
+          border: 'rgba(255, 255, 255, 0.08)',
+        },
+      },
+      animation: {
+        'drift-1': 'drift-1 20s ease-in-out infinite',
+        'drift-2': 'drift-2 25s ease-in-out infinite',
+        'drift-3': 'drift-3 18s ease-in-out infinite',
+        'pulse-glow': 'pulse-glow 8s ease-in-out infinite',
       },
       fontFamily: {
-        display: ['"Newsreader"', '"Noto Serif SC"', 'serif'],
-        interface: ['"IBM Plex Sans Condensed"', '-apple-system', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
-        mono: ['"IBM Plex Mono"', 'monospace'],
-        serif: ['"Noto Serif SC"', 'serif'],
+        sans: ['-apple-system', 'BlinkMacSystemFont', 'Inter', 'SF Pro Display', 'Segoe UI', 'Roboto', 'PingFang SC', 'Microsoft YaHei', 'sans-serif'],
       },
     },
   },
