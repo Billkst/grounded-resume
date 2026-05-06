@@ -1,14 +1,18 @@
+<p align="right">
+  <b>English</b> | <a href="README_CN.md">中文</a>
+</p>
+
 # ![logo](https://img.shields.io/badge/🎯-Grounded%20Resume-6366f1?style=for-the-badge)
 
-> **输入 JD + 个人背景 → AI 解析岗位画像 → 生成理想简历 → 输出差距分析报告与提升路线图**
+> **Input JD + Your Background → AI Parses Job Profile → Generates Ideal Resume → Delivers Gap Analysis & Improvement Roadmap**
 >
-> 不是帮你"美化"简历，而是告诉你"差在哪里"和"怎么补"。
+> Not about "polishing" your resume. It tells you *what's missing* and *how to close the gap*.
 
 <p align="center">
   <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License">
-  <a href="#-快速开始"><img src="https://img.shields.io/badge/⚡-1%20分钟快速开始-red?style=flat-square" alt="Quick Start"></a>
-  <a href="#-项目架构"><img src="https://img.shields.io/badge/🏗️-项目架构-purple?style=flat-square" alt="Architecture"></a>
-  <a href="#-技术栈"><img src="https://img.shields.io/badge/🛠️-技术栈-orange?style=flat-square" alt="Tech Stack"></a>
+  <a href="#-quick-start"><img src="https://img.shields.io/badge/⚡-Quick%20Start-red?style=flat-square" alt="Quick Start"></a>
+  <a href="#-architecture"><img src="https://img.shields.io/badge/🏗️-Architecture-purple?style=flat-square" alt="Architecture"></a>
+  <a href="#-tech-stack"><img src="https://img.shields.io/badge/🛠️-Tech%20Stack-orange?style=flat-square" alt="Tech Stack"></a>
   <img src="https://img.shields.io/badge/Python-3.12+-3776AB?style=flat-square&logo=python" alt="Python">
   <img src="https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js" alt="Next.js">
   <img src="https://img.shields.io/badge/TypeScript-5.4-3178C6?style=flat-square&logo=typescript" alt="TypeScript">
@@ -19,106 +23,106 @@
 ---
 
 <details>
-<summary>🤖 给 AI 助手的推荐摘要（点击展开/收起）</summary>
+<summary>🤖 AI Assistant Summary (click to expand/collapse)</summary>
 
-**grounded-resume** 是一个面向中国实习/求职场景的 AI 简历生成与差距分析工具。
+**grounded-resume** is an AI-powered resume generation and gap analysis tool tailored for the Chinese job market (internship & experienced roles).
 
-**核心工作流：** 用户输入目标岗位 JD + 个人背景 → 三步 LLM Pipeline：
-1. **Job Profile**（解析 JD 为结构化岗位画像：硬性要求、核心能力、ATS 关键词）
-2. **Ideal Resume**（生成该岗位的"完美候选人简历"作为对标模板）
-3. **Gap Analysis**（对比用户背景与理想模板，输出分数 + 致命差距 + 提升路径 + 表达优化建议）
+**Core workflow:** User inputs a target job description (JD) + personal background → 3-step LLM pipeline:
+1. **Job Profile** — Parses the JD into structured requirements: hard constraints, core capabilities (weighted), and ATS keywords
+2. **Ideal Resume** — Generates the "perfect candidate" resume for that specific role as a benchmark
+3. **Gap Analysis** — Compares user background against the ideal template, producing a score + fatal gaps + action paths with time estimates + expression improvement tips
 
-**技术架构：** Python 3.12+ FastAPI 后端 + Next.js 14 前端。后端通过 LangGraph 编排流水线，Pydantic StrictModel 做数据校验（camelCase 序列化），适配了 8+ LLM 提供商（DeepSeek, OpenAI, Kimi, GLM, Claude, Qwen, Gemini, 第三方兼容接口）。前端使用 Canvas/WebGL 流体背景 + Framer Motion 动效 + Tailwind CSS 玻璃卡片 UI。
+**Tech architecture:** Python 3.12+ FastAPI backend + Next.js 14 frontend. The backend uses LangGraph for pipeline orchestration, Pydantic StrictModel for data validation (camelCase serialization), and adapters for 8+ LLM providers (DeepSeek, OpenAI, Kimi, GLM, Claude, Qwen, Gemini, custom OpenAI-compatible). The frontend features a WebGL fluid background, Framer Motion animations, and Tailwind CSS glass-morphism UI.
 
-**关键约束：** 所有 Pydantic 模型使用 `extra="forbid"` + `alias_generator=to_camel`，API JSON 字段均为 camelCase。LLM 输出经多层归一化（字段映射、分类推断、降级处理）后落库。
+**Key constraints:** All Pydantic models use `extra="forbid"` + `alias_generator=to_camel` — API JSON fields are camelCase. LLM outputs go through multi-layer normalization (field mapping, category inference, fallback) before storage.
 
-**质量保障：** `make verify` 一键跑通 lint → typecheck → tests → frontend build → E2E。CI 通过 GitHub Actions 双 matrix（Python + Node.js）自动化。
+**Quality gates:** `make verify` runs lint → typecheck → tests → frontend build → E2E in one shot. CI via GitHub Actions with dual matrix (Python + Node.js).
 </details>
 
 <details>
-<summary>✅ 为什么选择 Grounded Resume？（点击展开/收起）</summary>
+<summary>✅ Why Grounded Resume? (click to expand/collapse)</summary>
 
-| 问题 | 现有方案 | Grounded Resume |
-|------|---------|----------------|
-| "帮我改简历" | ChatGPT 泛泛而谈，缺乏岗位深度 | 先分析 JD 再对标，每一步可追溯 |
-| "我差在哪里" | 不知道从何补起 | 致命差距 + 核心差距 + 行动路径 + 预估时间 |
-| "怎么写更好" | 没有具体指导 | 逐条表达优化建议：原文 → 改写 → 方法 |
-| "换了岗位还要重新分析" | 重复劳动 | JD 哈希缓存，同岗位秒级复用 |
-| "隐私数据不想上传" | 担心泄露 | 支持自带 API Key，数据不落盘 |
-| "想用自己习惯的模型" | 锁定单一模型 | 8+ 提供商自由切换 |
+| Problem | Existing Solutions | Grounded Resume |
+|---------|-------------------|----------------|
+| "Fix my resume" | ChatGPT gives generic advice without job context | JD-first analysis, every suggestion traceable to the JD |
+| "What am I missing?" | No clear path to improvement | Fatal gaps + critical gaps + action paths + time estimates |
+| "How should I phrase this?" | Vague suggestions | Specific rewrites: original → improved → method |
+| "Different job, do it again?" | Start over every time | JD hash caching, instant reuse for same role |
+| "Privacy concerns" | Data sent to unknown servers | Bring-your-own API key, client-side LLM calls |
+| "I prefer a specific model" | Locked into one provider | 8+ providers, freely switchable |
 
 </details>
 
 ---
 
-## 🎯 一句话定义
+## 🎯 One-Liner
 
-**Grounded Resume** = 目标岗位 JD → 结构化岗位画像 → 理想简历对标 → 差距量化 + 提升路线图
+**Grounded Resume** = Target JD → Structured job profile → Ideal resume benchmark → Quantified gaps + improvement roadmap
 
-每一步都 **Grounded**（有依据），每条建议都 **Traceable**（可溯源）。
+Every step is **Grounded** (evidence-backed). Every suggestion is **Traceable** (source-linked).
 
 ---
 
-## 📸 界面预览
+## 📸 Screenshots
 
 <p align="center">
-  <img src="playwright-screenshots/01-homepage.png" width="48%" alt="首页">
+  <img src="playwright-screenshots/01-homepage.png" width="48%" alt="Homepage">
   &nbsp;
-  <img src="playwright-screenshots/02-confirmation.png" width="48%" alt="确认页">
+  <img src="playwright-screenshots/02-confirmation.png" width="48%" alt="Confirmation">
 </p>
 
 ---
 
-## ⚡ 1 分钟快速开始
+## ⚡ Quick Start
 
 ```bash
-# 1. 克隆仓库
+# 1. Clone
 git clone https://github.com/Billkst/grounded-resume.git
 cd grounded-resume
 
-# 2. 配置环境变量
+# 2. Configure environment
 cp .env.example .env
-# 编辑 .env，至少填入一个 LLM API Key（如 DEEPSEEK_API_KEY=sk-xxx）
+# Edit .env — fill in at least one LLM API key (e.g. DEEPSEEK_API_KEY=sk-xxx)
 
-# 3. 安装依赖
+# 3. Install dependencies
 make install-backend   # pip install -e ".[dev]"
 make install-frontend  # cd frontend && npm install
 
-# 4. 启动开发环境
-make dev-backend &     # 后端 → http://localhost:8000
-make dev-frontend &    # 前端 → http://localhost:3000
+# 4. Start dev servers
+make dev-backend &     # Backend → http://localhost:8000
+make dev-frontend &    # Frontend → http://localhost:3000
 ```
 
-打开 `http://localhost:3000`，填入目标岗位 JD 和个人背景，点击生成。
+Open `http://localhost:3000`, paste a target JD and your background, hit generate.
 
 ---
 
-## 🏗️ 项目架构
+## 🏗️ Architecture
 
 <div align="center">
 
 ```mermaid
 graph TB
-    subgraph UX["🖥️ 前端层"]
-        Home["首页<br/>JD + 背景输入"]
-        Confirm["确认页<br/>岗位画像 + LLM配置"]
-        Result["结果页<br/>理想简历 + 差距报告"]
+    subgraph UX["🖥️ Frontend"]
+        Home["Homepage<br/>JD + Background Input"]
+        Confirm["Confirmation<br/>Job Profile + LLM Config"]
+        Result["Results<br/>Ideal Resume + Gap Report"]
     end
 
-    subgraph API["🔌 API 层"]
+    subgraph API["🔌 API Layer"]
         Route["FastAPI Router<br/>POST /api/generate<br/>GET /api/generate/{session_id}"]
-        Session["Session Store<br/>内存会话管理 + 进度轮询"]
+        Session["Session Store<br/>In-memory sessions + progress polling"]
     end
 
-    subgraph Pipeline["⚙️ 流水线层"]
-        Step1["Step 1: Build Job Profile<br/>JD → 硬性要求 + 核心能力 + ATS 关键词"]
-        Step2["Step 2: Generate Ideal Resume<br/>岗位画像 → 5段式理想简历 Markdown"]
-        Step3["Step 3: Analyze Gaps<br/>背景 vs 理想 → 分数 + 致命差距 + 提升路径"]
+    subgraph Pipeline["⚙️ Pipeline"]
+        Step1["Step 1: Build Job Profile<br/>JD → Hard Reqs + Core Capabilities + ATS Keywords"]
+        Step2["Step 2: Generate Ideal Resume<br/>Job Profile → 5-section Ideal Resume (Markdown)"]
+        Step3["Step 3: Analyze Gaps<br/>Background vs Ideal → Score + Fatal Gaps + Action Paths"]
     end
 
-    subgraph LLM["🧠 LLM 适配层"]
-        Providers["DeepSeek | OpenAI | Kimi | GLM<br/>Claude | Qwen | Gemini | 第三方"]
-        Fallback["降级策略：LLM → Hybrid → Rule"]
+    subgraph LLM["🧠 LLM Adapters"]
+        Providers["DeepSeek | OpenAI | Kimi | GLM<br/>Claude | Qwen | Gemini | Custom"]
+        Fallback["Fallback: LLM → Hybrid → Rule"]
     end
 
     Home --> Route
@@ -141,17 +145,17 @@ graph TB
 
 </div>
 
-### 三步流水线详解
+### Three-Step Pipeline
 
-| 步骤 | 输入 | 输出 | 耗时 |
-|------|------|------|------|
-| **① 岗位画像** | JD 原文 | `JobProfile`（硬性要求分类、核心能力加权、ATS 高低频关键词） | ~3s |
-| **② 理想简历** | 岗位画像 + 目标角色 + 经验级别 | 5 段式 Markdown 简历（基本信息、个人总结、技能、经历、教育） | ~8s |
-| **③ 差距分析** | 岗位画像 + 用户背景 + 理想简历 | 综合匹配分 + 致命差距 + 核心差距（含行动路径和预估时间）+ 表达优化建议 | ~6s |
+| Step | Input | Output | ~Time |
+|------|-------|--------|-------|
+| **① Job Profile** | Raw JD text | `JobProfile` (categorized hard requirements, weighted core capabilities, ATS keywords by priority) | ~3s |
+| **② Ideal Resume** | Job Profile + target role + experience level | 5-section Markdown resume (basic info, summary, skills, experience, education) | ~8s |
+| **③ Gap Analysis** | Job Profile + user background + ideal resume | Match score + fatal blockers + critical gaps (with action paths & time estimates) + expression tips | ~6s |
 
-### 数据模型设计
+### Data Model
 
-所有模型基于 `StrictModel`（`extra="forbid"`、`alias_generator=to_camel`），API JSON 字段使用 camelCase：
+All models extend `StrictModel` (`extra="forbid"`, `alias_generator=to_camel`) — API JSON uses camelCase:
 
 ```
 GenerateRequest → JobProfile → IdealResume → GapReport
@@ -163,117 +167,116 @@ GenerateRequest → JobProfile → IdealResume → GapReport
 
 ---
 
-## 📂 仓库结构
+## 📂 Repository Structure
 
 ```
 grounded-resume/
-├── src/grounded_resume/      # 后端源码
-│   ├── api/                  # FastAPI 应用 + 路由 + 会话管理
-│   ├── core/                 # 核心引擎
-│   │   ├── config/           # 配置管理（LLMConfig + 环境变量）
-│   │   ├── models/           # Pydantic 数据模型（StrictModel 基类）
-│   │   ├── generator.py      # 三步流水线主逻辑
-│   │   ├── ideal_models.py   # 理想简历业务模型
-│   │   ├── llm_service.py    # LLM 服务封装（8+ 提供商统一接口）
-│   │   ├── llm_helpers.py    # LLM 调用工具（JSON 模式、重试、降级）
-│   │   └── prompt_loader.py  # Prompt 模板加载器
-│   └── providers/            # LLM 提供商适配器
-│       ├── openai_compatible.py  # OpenAI 兼容协议适配
-│       ├── anthropic_adapter.py  # Claude 适配
-│       └── gemini_adapter.py     # Gemini 适配
-├── frontend/                 # 前端源码（Next.js 14）
-│   ├── app/                  # 页面路由（/, /result）
-│   ├── components/           # UI 组件
-│   │   ├── fluid-background.tsx  # WebGL 流体背景
-│   │   ├── dot-matrix.tsx        # 点阵叠加效果
-│   │   ├── glass-card.tsx        # 玻璃拟态卡片
-│   │   ├── ideal-input-form.tsx  # 输入表单
-│   │   ├── ideal-result-view.tsx # 结果展示
-│   │   └── navbar.tsx            # 导航栏
-│   ├── lib/                  # 工具库（API 客户端、类型定义、LLM 配置）
-│   └── e2e/                  # Playwright E2E 测试
-├── tests/                    # 后端测试（pytest）
-├── prompts/                  # Prompt 模板文件
-├── scripts/                  # 工具脚本
-├── research/                 # Baseline 评测数据与报告
-├── product/                  # 产品文档（需求、设计、决策记录）
-├── docs/                     # 项目文档（用户手册、架构指南）
-├── data/                     # 运行时数据（SQLite DB）
-├── .github/workflows/ci.yml  # CI/CD 配置
-├── Makefile                  # 开发命令入口
-└── pyproject.toml            # Python 项目配置
+├── src/grounded_resume/      # Backend source
+│   ├── api/                  # FastAPI app + routes + session management
+│   ├── core/                 # Core engine
+│   │   ├── config/           # Configuration (LLMConfig + env vars)
+│   │   ├── models/           # Pydantic models (StrictModel base)
+│   │   ├── generator.py      # 3-step pipeline orchestration
+│   │   ├── ideal_models.py   # Business models for ideal resume
+│   │   ├── llm_service.py    # Unified LLM interface (8+ providers)
+│   │   ├── llm_helpers.py    # LLM call utilities (JSON mode, retry, fallback)
+│   │   └── prompt_loader.py  # Prompt template loader
+│   └── providers/            # LLM provider adapters
+│       ├── openai_compatible.py  # OpenAI-compatible protocol adapter
+│       ├── anthropic_adapter.py  # Claude adapter
+│       └── gemini_adapter.py     # Gemini adapter
+├── frontend/                 # Frontend source (Next.js 14)
+│   ├── app/                  # Pages (/, /result)
+│   ├── components/           # UI components
+│   │   ├── fluid-background.tsx  # WebGL fluid shader background
+│   │   ├── dot-matrix.tsx        # Dot matrix overlay effect
+│   │   ├── glass-card.tsx        # Glass-morphism card
+│   │   ├── ideal-input-form.tsx  # Input form
+│   │   ├── ideal-result-view.tsx # Result display
+│   │   └── navbar.tsx            # Navigation bar
+│   ├── lib/                  # Utilities (API client, types, LLM config)
+│   └── e2e/                  # Playwright E2E tests
+├── tests/                    # Backend tests (pytest)
+├── prompts/                  # Prompt template files
+├── research/                 # Baseline evaluation data & reports
+├── product/                  # Product docs (requirements, design, ADRs)
+├── docs/                     # Project docs (user manual, architecture guide)
+├── data/                     # Runtime data (SQLite DB)
+├── .github/workflows/ci.yml  # CI/CD pipeline
+├── Makefile                  # Dev command hub
+└── pyproject.toml            # Python project config
 ```
 
 ---
 
-## 🛠️ 技术栈
+## 🛠️ Tech Stack
 
-| 层级 | 技术 | 说明 |
-|------|------|------|
-| **后端框架** | FastAPI 0.111+ | 异步 REST API，CORS 中间件 |
-| **工作流编排** | LangGraph 0.2+ | 状态机驱动的流水线 |
-| **数据校验** | Pydantic 2.7+ | StrictModel 严格模式 + camelCase 序列化 |
-| **LLM 协议** | OpenAI 兼容 + 提供商适配 | 8+ 提供商统一接口 + 自动降级 |
-| **前端框架** | Next.js 14 | App Router + 客户端渲染 |
-| **类型系统** | TypeScript 5.4 | 严格模式 + camelCase 接口 |
-| **样式** | Tailwind CSS 3.4 | 暗色主题 + 玻璃拟态 + 动效 |
-| **动效** | Framer Motion + WebGL Shader | 流体背景 + 入场动画 |
-| **E2E 测试** | Playwright 1.59 | Chromium 自动化 + 视觉截图 |
-| **后端测试** | pytest 8.2+ | 单元测试 + 覆盖率 |
-| **代码质量** | Ruff + basedpyright + ESLint | 后端 Lint + 类型检查 + 前端 Lint |
-| **CI/CD** | GitHub Actions | 双 matrix（Python + Node.js）并行流水线 |
+| Layer | Technology | Notes |
+|-------|-----------|-------|
+| **Backend framework** | FastAPI 0.111+ | Async REST API, CORS middleware |
+| **Workflow orchestration** | LangGraph 0.2+ | State-machine-driven pipeline |
+| **Data validation** | Pydantic 2.7+ | StrictMode + camelCase serialization |
+| **LLM protocol** | OpenAI-compatible + provider adapters | 8+ providers, unified interface + auto-fallback |
+| **Frontend framework** | Next.js 14 | App Router + client-side rendering |
+| **Type system** | TypeScript 5.4 | Strict mode + camelCase interfaces |
+| **Styling** | Tailwind CSS 3.4 | Dark theme + glass-morphism + animations |
+| **Animation** | Framer Motion + WebGL Shader | Fluid background + entrance animations |
+| **E2E testing** | Playwright 1.59 | Chromium automation + visual snapshots |
+| **Backend testing** | pytest 8.2+ | Unit tests + coverage |
+| **Code quality** | Ruff + basedpyright + ESLint | Lint + typecheck + frontend lint |
+| **CI/CD** | GitHub Actions | Dual matrix (Python + Node.js) parallel pipeline |
 
 ---
 
-## 🧪 开发命令
+## 🧪 Development Commands
 
-所有命令通过 `make` 统一入口：
+All commands via `make`:
 
-| 命令 | 说明 |
-|------|------|
-| `make install-backend` | 安装后端依赖 |
-| `make install-frontend` | 安装前端依赖 |
-| `make install` | 安装全部依赖 |
-| `make dev-backend` | 启动后端开发服务器（:8000） |
-| `make dev-frontend` | 启动前端开发服务器（:3000） |
-| `make test-backend` | 运行后端测试 |
-| `make test-backend-cov` | 运行后端测试 + 覆盖率报告 |
-| `make lint-backend` | Ruff 代码检查 + 格式化检查 |
-| `make typecheck-backend` | basedpyright 类型检查 |
-| `make test-e2e` | Playwright E2E 测试 |
-| `make test-e2e-headed` | Playwright E2E 测试（可视化） |
-| `make test-e2e-debug` | Playwright E2E 测试（调试模式） |
-| `make verify` | **一键全检**：lint + typecheck + test + build + e2e |
+| Command | Description |
+|---------|-------------|
+| `make install-backend` | Install backend dependencies |
+| `make install-frontend` | Install frontend dependencies |
+| `make install` | Install all dependencies |
+| `make dev-backend` | Start backend dev server (:8000) |
+| `make dev-frontend` | Start frontend dev server (:3000) |
+| `make test-backend` | Run backend tests |
+| `make test-backend-cov` | Run backend tests + coverage report |
+| `make lint-backend` | Ruff check + format check |
+| `make typecheck-backend` | basedpyright type check |
+| `make test-e2e` | Playwright E2E tests |
+| `make test-e2e-headed` | Playwright E2E tests (headed) |
+| `make test-e2e-debug` | Playwright E2E tests (debug mode) |
+| `make verify` | **Full check**: lint + typecheck + test + build + e2e |
 
-### 手动运行单测
+### Running Individual Tests
 
 ```bash
-# 后端单测
+# Backend single test
 python -m pytest tests/path/to/test_module.py::test_func -q
 
-# E2E 带 UI
+# E2E with UI
 cd frontend && npx playwright test --ui
 ```
 
 ---
 
-## 🔧 配置说明
+## 🔧 Configuration
 
-`.env` 关键变量（完整清单见 `.env.example`）：
+Key `.env` variables (full list in `.env.example`):
 
-| 变量 | 说明 | 默认值 |
-|------|------|--------|
-| `DEPLOYMENT_MODE` | 部署模式（`local` / `cloud`） | `local` |
-| `ENABLE_AUTH` | 是否启用 JWT 认证 | `false` |
-| `LLM_PROVIDER` | 默认 LLM 提供商 | `openai` |
-| `LLM_MODEL` | 默认模型 | `gpt-4o-mini` |
-| `LLM_MODE` | 执行模式（`rule` / `hybrid` / `llm`） | `hybrid` |
-| `LLM_FALLBACK_PROVIDERS` | 降级提供商链 | `deepseek,qwen,gemini` |
-| `<PROVIDER>_API_KEY` | 各提供商 API Key | - |
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DEPLOYMENT_MODE` | Deployment mode (`local` / `cloud`) | `local` |
+| `ENABLE_AUTH` | Enable JWT authentication | `false` |
+| `LLM_PROVIDER` | Default LLM provider | `openai` |
+| `LLM_MODEL` | Default model | `gpt-4o-mini` |
+| `LLM_MODE` | Execution mode (`rule` / `hybrid` / `llm`) | `hybrid` |
+| `LLM_FALLBACK_PROVIDERS` | Fallback provider chain | `deepseek,qwen,gemini` |
+| `<PROVIDER>_API_KEY` | Per-provider API key | - |
 
 ---
 
-## 🗺️ 路线图
+## 🗺️ Roadmap
 
 <div align="center">
 
@@ -281,84 +284,84 @@ cd frontend && npx playwright test --ui
 gantt
     title Grounded Resume Roadmap
     dateFormat  YYYY-MM
-    section MVP 已完成
-    Baseline 评测（A/B/C/D 四类）     :done, base, 2025-09, 2025-11
-    产品需求与架构设计                :done, design, 2025-11, 2025-12
-    MVP 核心流水线                    :done, mvp, 2025-12, 2026-01
-    前端 UI 重设计                   :done, ui, 2026-02, 2026-03
-    多提供商适配                      :done, prov, 2026-03, 2026-04
-    section 下一步
-    用户简历素材上传解析              :active, upload, 2026-05, 2026-06
-    历史记录与版本对比                :history, 2026-06, 2026-07
-    section 未来
-    真实岗位数据库对标                :benchmark, 2026-07, 2026-09
-    一键投递与追踪                   :tracking, 2026-09, 2026-11
+    section MVP — Done
+    Baseline Evaluation (A/B/C/D)       :done, base, 2025-09, 2025-11
+    Product Requirements & Architecture :done, design, 2025-11, 2025-12
+    MVP Core Pipeline                   :done, mvp, 2025-12, 2026-01
+    Frontend UI Redesign                :done, ui, 2026-02, 2026-03
+    Multi-Provider Adapters             :done, prov, 2026-03, 2026-04
+    section Next
+    Resume File Upload & Parsing        :active, upload, 2026-05, 2026-06
+    History & Version Comparison        :history, 2026-06, 2026-07
+    section Future
+    Real Job Database Benchmarking      :benchmark, 2026-07, 2026-09
+    One-Click Apply & Tracking          :tracking, 2026-09, 2026-11
 ```
 
 </div>
 
 ---
 
-## 📊 支持的语言模型
+## 📊 Supported Models
 
-| 提供商 | 模型示例 | 适配方式 |
-|--------|---------|----------|
-| **DeepSeek** | deepseek-v4-pro | OpenAI 兼容协议 |
-| **OpenAI** | gpt-5.5, gpt-4o-mini | OpenAI 兼容协议 |
-| **Kimi** | kimi-k2.6 | OpenAI 兼容协议 |
-| **GLM** | glm-5.5 | OpenAI 兼容协议 |
-| **Claude** | claude-opus-4-7 | Anthropic 适配器 |
-| **Qwen** | qwen3.6-max-preview | OpenAI 兼容协议 |
-| **Gemini** | gemini-3.1-pro-preview | Google 适配器 |
-| **第三方** | 自定义 | OpenAI 兼容协议 + 自定义 Base URL |
-
----
-
-## ❓ 常见问题
-
-<details>
-<summary>Q: 和直接问 ChatGPT "帮我改简历" 有什么区别？</summary>
-
-ChatGPT 的通用回答缺乏对你目标岗位的深度理解。"我应聘 AI 产品经理"和"我应聘后端工程师"需要的简历侧重点完全不同。Grounded Resume 先结构化解析 JD（硬性要求、核心能力、ATS 关键词），再生成针对性的理想简历模板，最后逐项对比你的背景——每一步都可以追溯到 JD 原文。
-</details>
-
-<details>
-<summary>Q: 我的个人数据安全吗？</summary>
-
-系统支持 **自带 API Key** 模式——你的数据直接从浏览器发送到你自己的 LLM 账户，不经过任何中间服务器。后端 Session 存储在内存中，服务重启即清除。即使使用后端转发模式，JD 仅做 SHA256 哈希缓存（不存储原文），生成结果不落盘。
-</details>
-
-<details>
-<summary>Q: 适合什么阶段的求职者？</summary>
-
-支持 5 个经验级别：**实习/应届**、1-3 年、3-5 年、5-10 年、10 年以上。每个级别的理想简历标准和差距容忍度不同——应届生侧重潜力和项目经验，资深者侧重成果量化和领导力。
-</details>
-
-<details>
-<summary>Q: 差距分析的分数是怎么算的？</summary>
-
-LLM 根据岗位画像中的核心能力权重（1-10 分），逐项评估你的背景匹配度，加权计算综合分数。同时输出三类差距：
-- **致命差距**：硬性门槛不达标（如学历、必须技能）
-- **核心差距**：软性能力不足，但可弥补（含行动路径和预估时间）
-- **表达优化**：你有这个经历，但写法不够好（原文 → 改写 → 方法）
-</details>
+| Provider | Example Models | Adapter |
+|----------|---------------|---------|
+| **DeepSeek** | deepseek-v4-pro | OpenAI-compatible |
+| **OpenAI** | gpt-5.5, gpt-4o-mini | OpenAI-compatible |
+| **Kimi** | kimi-k2.6 | OpenAI-compatible |
+| **GLM** | glm-5.5 | OpenAI-compatible |
+| **Claude** | claude-opus-4-7 | Anthropic adapter |
+| **Qwen** | qwen3.6-max-preview | OpenAI-compatible |
+| **Gemini** | gemini-3.1-pro-preview | Google adapter |
+| **Custom** | Any OpenAI-compatible endpoint | OpenAI-compatible + custom base URL |
 
 ---
 
-## 🤝 贡献指南
+## ❓ FAQ
 
-欢迎贡献代码、Prompt 优化、Bug 反馈和产品建议。
+<details>
+<summary>Q: How is this different from asking ChatGPT "fix my resume"?</summary>
 
-提交 PR 前请运行 `make verify` 确保所有检查通过。
+ChatGPT gives generic advice without deep understanding of your target role. The resume for "AI Product Manager" vs "Backend Engineer" requires fundamentally different emphasis. Grounded Resume first parses the JD structurally (hard requirements, core capabilities, ATS keywords), then generates a role-specific ideal resume template, and finally compares your background point by point — every suggestion traces back to the JD.
+</details>
+
+<details>
+<summary>Q: Is my data safe?</summary>
+
+The system supports **bring-your-own API key** mode — your data goes directly from your browser to your own LLM account, never touching an intermediary server. Backend sessions are stored in-memory and cleared on restart. Even in server-relay mode, JDs are only SHA256-hash-cached (plaintext not stored), and generated results are never persisted to disk.
+</details>
+
+<details>
+<summary>Q: What experience levels are supported?</summary>
+
+Five levels: **New Grad / Intern**, 1-3 years, 3-5 years, 5-10 years, and 10+ years. The ideal resume benchmark and gap tolerance differ by level — new grads are evaluated on potential and projects, seniors on quantified impact and leadership.
+</details>
+
+<details>
+<summary>Q: How is the gap score calculated?</summary>
+
+The LLM evaluates your background against each core capability in the job profile (weighted 1-10), computing a weighted match score. Three categories of gaps are reported:
+- **Fatal blockers** — Hard requirements you don't meet (e.g., required degree, mandatory skill)
+- **Critical gaps** — Capabilities you lack but can develop (with action paths and time estimates)
+- **Expression tips** — You have the experience, but it's poorly worded (original → rewrite → method)
+</details>
 
 ---
 
-## 📜 许可证
+## 🤝 Contributing
+
+Contributions are welcome — code, prompt improvements, bug reports, and feature suggestions.
+
+Please run `make verify` before submitting a PR to ensure all checks pass.
+
+---
+
+## 📜 License
 
 MIT License
 
 ---
 
 <p align="center">
-  <sub>Built with ❤️ by <a href="https://github.com/Billkst">Billkst</a> | <a href="#grounded-resume">⬆ 返回顶部</a></sub>
+  <sub>Built with ❤️ by <a href="https://github.com/Billkst">Billkst</a> | <a href="#grounded-resume">⬆ Back to top</a></sub>
 </p>
