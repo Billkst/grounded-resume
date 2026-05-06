@@ -1,53 +1,28 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test';
 
-test.setTimeout(300_000) // 5 minutes total timeout for DeepSeek latency
+test.setTimeout(300_000);
 
-test('real end-to-end resume generation with DeepSeek', async ({ page }) => {
-  // 1. Configure LLM settings
-  await page.goto('/settings')
-  await page.waitForSelector('#provider')
+test('real end-to-end ideal resume generation with DeepSeek', async ({ page }) => {
+  await page.goto('/');
 
-  await page.selectOption('#provider', 'deepseek')
-  await page.selectOption('#mode', 'hybrid')
+  // Fill form
+  await page.selectOption('select', 'new_grad');
+  await page.getByRole('button', { name: 'AI产品经理' }).click();
+  await page.locator('textarea').first().fill('计算机科学本科，有产品实习经验');
+  await page.locator('textarea').last().fill('负责AI产品需求分析和设计，要求计算机相关专业，有实习经验优先');
 
-  // Wait for model options to update after provider change
-  await page.waitForFunction(() => {
-    const options = document.querySelectorAll('#model option')
-    return options.length > 0
-  })
+  // Fill API key in LLM config
+  await page.locator('input[type="password"]').fill('sk-test-api-key');
 
-  await page.selectOption('#model', 'deepseek-v4-pro')
+  // Submit
+  await page.getByRole('button', { name: '生成简历' }).click();
 
-  // API key input is password type, fill it
-  await page.fill('#apiKey', 'sk-0e2def73ef214cd9a954179af43b28d2')
+  // Wait for result page
+  await page.waitForURL(/\/result\?session=/, { timeout: 30000 });
 
-  // Wait a moment for auto-save
-  await page.waitForTimeout(500)
+  // Wait for completion
+  await expect(page.getByText('理想版简历')).toBeVisible({ timeout: 240_000 });
 
-  // 2. Go to home and load test data
-  await page.goto('/')
-  await page.waitForSelector('[data-testid="load-test-data-button"]')
-  await page.click('[data-testid="load-test-data-button"]')
-
-  // 3. Submit form
-  await page.click('[data-testid="submit-resume-button"]')
-
-  // 4. Wait for result page
-  await page.waitForURL(/\/result\?sessionId=/, { timeout: 30000 })
-
-  // 5. Wait for generation to complete (result page shows resume content)
-  await expect(page.locator('[data-testid="result-page"]')).toBeVisible({ timeout: 240_000 })
-
-  // Wait for a resume section heading to appear (not error state)
-  await expect(page.getByRole('heading', { name: '基本信息' })).toBeVisible({ timeout: 240_000 })
-
-  // 6. Extract and print the generated resume text
-  const resumeContainer = page.locator('[data-testid="result-page"] section').first()
-  const resumeText = await resumeContainer.innerText()
-  console.log('\n========== GENERATED RESUME ==========\n')
-  console.log(resumeText)
-  console.log('\n======================================\n')
-
-  // 7. Take screenshot for visual verification
-  await page.screenshot({ path: 'test-results/real-end-to-end-result.png', fullPage: true })
-})
+  // Take screenshot
+  await page.screenshot({ path: 'test-results/real-end-to-end-result.png', fullPage: true });
+});
