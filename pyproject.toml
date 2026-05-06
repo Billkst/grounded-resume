@@ -12,7 +12,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-  "basedpyright>=0.17,<1.0",
+  "basedpyright>=1.0,<2.0",
   "pytest>=8.2,<9.0",
   "ruff>=0.5,<1.0",
 ]
